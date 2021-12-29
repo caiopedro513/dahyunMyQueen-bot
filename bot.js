@@ -36,6 +36,7 @@ let gym = require(`./gym.js`).gym;
 let strength = require(`./strength.js`).strength;
 let help = require(`./help.js`).help;
 let energy = require(`./energy.js`).energy;
+let store = require(`./store.js`).store;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -215,6 +216,10 @@ function onMessageHandler (target, context, msg, self) {
     //energy
     if (commandName.startsWith("$energy")){
         energy(target, client, context.username, commandName);
+    }
+    //buy
+    if (commandName.startsWith("$buy")){
+        store(target, client, context.username, commandName);
     }
 }
 

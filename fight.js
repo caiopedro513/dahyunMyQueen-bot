@@ -27,7 +27,7 @@ let fight = function(target, client, username, mssg){
                         client.say(target, `the person is not even in KUKW`)
                     }
                     else{
-                        scoring(username, robpers).then(function(score){
+                        scoring(username, robpers).then(function(score){ //when scoring() is done
                             connection.query(`SELECT health FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields){
                                 if (results[0].health <= 0){
                                     client.say(target, `KUKW you can't fight you're dead but you can $revive`)
