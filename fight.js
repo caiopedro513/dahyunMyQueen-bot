@@ -49,30 +49,32 @@ let fight = function(target, client, username, mssg){
                                                         }
                                                         else{
                                                             var numrol = diceroll();
-                                                            if (numrol >= 97){
-                                                                connection.query(`UPDATE fightclubstats SET money = money - 100, health = health - 20, energy = energy - 25 WHERE username = ?`, [robpers], function (error, results, fields) {
-                                                                    client.say(target, `Poggers ${username} you beat ${robpers} really bad got $100 and didn't even get hit`);
-                                                                })
-                                                                connection.query(`UPDATE fightclubstats SET money = money + 100, energy = energy - 20 WHERE username = ?`, [username], function (error, results, fields) {
-                                                                })
-                                                            }
-                                                            if (numrol <= 3){
-                                                                connection.query(`UPDATE fightclubstats SET money = money - 100, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
-                                                                    client.say(target, `KUKW ${username} got beaten by ${robpers} really bad lost $100 and didn't even hit a single punch`);
-                                                                    beaten = 1;
-                                                                })
-                                                                connection.query(`UPDATE fightclubstats SET money = money + 100, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
-                                                                })
-                                                            }
-                                                            if (numrol < 97 && numrol > 3){
-                                                                if (score < 0){
+                                                            if (score < 0){
+                                                                if (numrol >= 100 - (score*(-1))){
+                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                        client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
+                                                                        beaten = 1;
+                                                                    })
+                                                                }
+                                                                if (numrol < 100 - (score*(-1))){
+                                                                    client.say(target, `score : ${score}`)
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
                                                                         client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                                                                     })
                                                                     connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
                                                                     })
                                                                 }
-                                                                if (score > 0){
+                                                            }
+                                                            if (score > 0){
+                                                                if (numrol >= 100 - score){
+                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
+                                                                        client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
+                                                                    })
+                                                                    connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                    })
+                                                                }
+                                                                if (numrol < 100 - score){
+                                                                    client.say(target, `${score}`);
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
                                                                         client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                                                                         beaten = 1;
@@ -80,22 +82,22 @@ let fight = function(target, client, username, mssg){
                                                                     connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
                                                                     })
                                                                 }
-                                                                if (score == 0){
-                                                                    if (numrol >= 49){
-                                                                        connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
-                                                                            client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
-                                                                        })
-                                                                        connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
-                                                                        })
-                                                                    }
-                                                                    if (numrol < 49){
-                                                                        connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
-                                                                            client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
-                                                                            beaten = 1;
-                                                                        })
-                                                                        connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
-                                                                        })
-                                                                    }
+                                                            }
+                                                            if (score == 0){
+                                                                if (numrol >= 49){
+                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
+                                                                        client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
+                                                                    })
+                                                                    connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                    })
+                                                                }
+                                                                if (numrol < 49){
+                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                        client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
+                                                                        beaten = 1;
+                                                                    })
+                                                                    connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
+                                                                    })
                                                                 }
                                                             }
                                                         }
