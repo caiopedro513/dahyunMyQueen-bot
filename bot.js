@@ -219,7 +219,11 @@ function onMessageHandler (target, context, msg, self) {
     }
     //buy
     if (commandName.startsWith("$buy")){
-        store(target, client, context.username, commandName);
+        store(target, client, context.username, commandName, 0);
+    }
+    //store
+    if (commandName.startsWith("$store")){
+        store(target, client, context.username, commandName, 1);
     }
 }
 
