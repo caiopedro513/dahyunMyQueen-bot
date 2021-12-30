@@ -22,11 +22,8 @@ let scoring = function(username, robpers){
                 myReject("Did not find them");  // when error
             }
             else {
-                console.log(`${strrob}, ${enrrob}`);
-                console.log(`${strusr}, ${enrusr}`)
                 var score = ((enrrob + strrob) - (strusr + enrusr));
                 score = score / 100000;
-                console.log(`${score}`);
                 myResolve(score); // when successful
             }
         })                

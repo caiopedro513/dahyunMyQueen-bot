@@ -57,7 +57,6 @@ let fight = function(target, client, username, mssg){
                                                                     })
                                                                 }
                                                                 if (numrol < 100 - (score*(-1))){
-                                                                    client.say(target, `score : ${score}`)
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
                                                                         client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                                                                     })
@@ -74,7 +73,6 @@ let fight = function(target, client, username, mssg){
                                                                     })
                                                                 }
                                                                 if (numrol < 100 - score){
-                                                                    client.say(target, `${score}`);
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
                                                                         client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                                                                         beaten = 1;
