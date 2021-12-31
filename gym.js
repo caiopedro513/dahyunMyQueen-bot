@@ -17,7 +17,9 @@ let gym = function(target, client, username){
                         }
                         else{
                             connection.query(`UPDATE fightclubstats SET money = money - 75, strength = strength + 15, energy = energy - 10 WHERE username = ?`, [username], function(error, results, fields){
-                                client.say(target, `BillyApprove ${username} you worked out really hard great job +15💪`);
+                                connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
+                                    client.say(target, `BillyApprove ${username} you worked out really hard great job +15💪 💰${results[0].money}`);
+                                })
                             })
                         }
                     })

@@ -167,7 +167,7 @@ let fight = function(target, client, username, mssg){
         })
     }
     else{
-        client.say(target, `KUKW you can't rob yourself`);
+        client.say(target, `KUKW you can't fight yourself`);
     }
 }
 
