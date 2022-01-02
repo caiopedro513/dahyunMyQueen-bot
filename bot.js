@@ -38,6 +38,7 @@ let help = require(`./help.js`).help;
 let energy = require(`./energy.js`).energy;
 let store = require(`./store.js`).store;
 let suggestion = require(`./suggestion.js`).suggestion;
+let update = require(`./update.js`).update;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -229,6 +230,10 @@ function onMessageHandler (target, context, msg, self) {
     //suggestion
     if (commandName.startsWith("$suggestion")){
         suggestion(target, client, commandName);
+    }
+    //update
+    if (commandName.startsWith("$update") || commandName.startsWith("$patchnotes")){
+        update(target, client);
     }
 }
 
