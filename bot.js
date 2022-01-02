@@ -39,6 +39,7 @@ let energy = require(`./energy.js`).energy;
 let store = require(`./store.js`).store;
 let suggestion = require(`./suggestion.js`).suggestion;
 let update = require(`./update.js`).update;
+let job = require(`./job.js`).job;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -234,6 +235,10 @@ function onMessageHandler (target, context, msg, self) {
     //update
     if (commandName.startsWith("$update") || commandName.startsWith("$patchnotes")){
         update(target, client);
+    }
+    //job
+    if (commandName.startsWith("$job")){
+        job(target, client, context.username, diceroll());
     }
 }
 
