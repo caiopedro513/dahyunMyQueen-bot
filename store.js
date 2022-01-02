@@ -7,12 +7,7 @@ const storage = {
 };
 
 let store = function(target, client, username, message, sorbuy){
-    if (sorbuy == 1){
-        const storage = {
-            food : 30,
-            drink : 15,
-            cigarrete : 5
-        };   
+    if (sorbuy == 1){  
         for (let x in storage){
             client.say(target, `${x} : $${storage[x]}`);
         }

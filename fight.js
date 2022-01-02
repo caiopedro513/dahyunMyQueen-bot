@@ -102,7 +102,6 @@ let fight = function(target, client, username, mssg){
                                                     })
                                                 }
                                             })
-                                            
                                             connection.query(`SELECT health FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields){
                                                 var loot;
                                                 if (results[0].health <= 0){
