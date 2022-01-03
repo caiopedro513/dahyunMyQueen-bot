@@ -69,11 +69,11 @@ let fight = function(target, client, username, mssg){
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 20 WHERE username = ?`, [robpers], function (error, results, fields) {
                                                                         client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                                                                     })
-                                                                    connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                    connection.query(`UPDATE fightclubstats SET money = money + 50, health = health - 10, energy = energy - 25, strength = strength + 10 WHERE username = ?`, [username], function (error, results, fields) {
                                                                     })
                                                                 }
                                                                 if (numrol < 100 - score){
-                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
+                                                                    connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25, strength = strength + 5 WHERE username = ?`, [username], function (error, results, fields) {
                                                                         client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                                                                         beaten = 1;
                                                                     })
