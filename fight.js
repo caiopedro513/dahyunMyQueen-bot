@@ -1,4 +1,3 @@
-let diceroll = require(`./functions.js`).diceroll;
 let scoring = require(`./score.js`).scoring;
 
 let fight = function(target, client, username, mssg){
@@ -15,6 +14,13 @@ let fight = function(target, client, username, mssg){
         cmdsplt = cmdsplt[1].split(' ');
         cmdsplt = cmdsplt[0].trim();
         robpers = cmdsplt;
+    }
+    var numrol = Math.floor(Math.random() * 27);
+    if (numrol == 0) numrol += 1;
+    if (!robpers) {
+        connection.query(`SELECT username FROM fightclubstats WHERE id = ?`, [numrol], function(error, results, fields){
+            robpers = results[0].username;
+        })
     }
     if (robpers != username){
         connection.query(`SELECT username FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields) {
@@ -48,7 +54,6 @@ let fight = function(target, client, username, mssg){
                                                             client.say(target, `PogO ${robpers} is too tired`);
                                                         }
                                                         else{
-                                                            var numrol = diceroll();
                                                             if (score < 0){
                                                                 if (numrol >= 100 - (score*(-1))){
                                                                     connection.query(`UPDATE fightclubstats SET money = money - 50, health = health - 20, energy = energy - 25 WHERE username = ?`, [username], function (error, results, fields) {
