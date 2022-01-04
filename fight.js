@@ -1,6 +1,7 @@
 let scoring = require(`./score.js`).scoring;
 let getUserStats = require(`./users/getUserStats.js`).getUserStats;
 let updateUserStats = require(`./users/updateUserStats`).updateUserStats;
+let diceroll = require(`./functions.js`).diceroll
 
 let fight = function(target, client, username, mssg){
     var cmdsplt;
@@ -41,6 +42,7 @@ let fight = function(target, client, username, mssg){
 
             scoring(username, robpers).then(function(score){ //when scoring() is done
                 if (score < 0){
+                    numrol = diceroll();
 
                     if (numrol >= 100 - score*-1){
                         updateUserStats(username, -20, -25, -50).then(function(){
@@ -75,7 +77,24 @@ let fight = function(target, client, username, mssg){
                     }
                 }
 
-                
+                if (score == 0){
+
+                    if (numrol >= 49){
+                        updateUserStats(robpers, -20, -20, -50).then(function(){
+                            client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
+                        })
+                        updateUserStats(username, -10, -25, +50);
+                    }
+
+                    if (numrol < 49){
+                        updateUserStats(username, -20, -25, -50).then(function(){
+                            client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
+                            beaten = 1;
+                        })
+                        updateUserStats(robpers, -10, -20, +50);
+                    }
+                }
+
             })
             
         }).catch(function(myReject) { //if user is not in
