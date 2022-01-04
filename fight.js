@@ -18,8 +18,13 @@ let fight = function(target, client, username, mssg){
     var numrol = Math.floor(Math.random() * 27);
     if (numrol == 0) numrol += 1;
     if (!robpers) {
-        connection.query(`SELECT username FROM fightclubstats WHERE id = ?`, [numrol], function(error, results, fields){
-            robpers = results[0].username;
+        connection.query(`SELECT username, health FROM fightclubstats WHERE id = ?`, [numrol], function(error, results, fields){
+            if (results[0].health > 0 && results[0].username != username){
+                robpers = results[0].username;
+            }
+            else{
+                numrol = Math.floor(Math.random() * 27);
+            }
         })
     }
     if (robpers != username){
