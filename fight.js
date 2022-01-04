@@ -97,9 +97,10 @@ let fight = function(target, client, username, mssg){
                 }
 
                 getUserStats(username).then(function(userstats) {
-                    var loot;
-                    if (userstats.health <= 0){
-                        getUserStats(robpers).then(function(robbedstats){
+                    getUserStats(robpers).then(function(robbedstats){
+                        var loot;
+                        if (userstats.health <= 0){
+                            
                             if (robbedstats.health <= 0){
                                 resetUserStats(username).then(function(){
                                     client.say(target, `KUKW both ${username} and ${robpers} died, a homeless person walking by got their money`)
@@ -108,9 +109,11 @@ let fight = function(target, client, username, mssg){
                             }
 
                             if (robbedstats.health > 0){
+                                
                                 if (beaten === 1){
                                     client.say(target, `after getting beat up ${username} got murdered and looted by ${robpers} reeferSad`);
                                 }
+
                                 else{
                                     client.say(target, `${robpers} woke up after getting beat up and murdered ${username} PepeLoser Stab`);
                                 }
@@ -121,10 +124,28 @@ let fight = function(target, client, username, mssg){
                                     updateUserStats(username, 0, 0, -loot)
                                 }
                             }
-                        })
-                            
-                    }
-                    
+                        }    
+
+                        if (userstats.health > 0){
+
+                            if (robbedstats.health <= 0){
+
+                                if (beaten === 1){
+                                    client.say(target, `${username} woke up after getting beat up and murdered ${robpers} PepeLoser Stab`);
+                                }
+
+                                else{
+                                    client.say(target, `after getting beat up ${robpers} got murdered and looted by ${username} reeferSad`);
+                                }
+                                
+                                loot = robbedstats.money;
+                                if (loot >= 0){
+                                    updateUserStats(username, 0, 0, loot);
+                                    updateUserStats(robpers, 0, 0, -loot)
+                                }
+                            }
+                        }
+                    })
                 })
             })
             
