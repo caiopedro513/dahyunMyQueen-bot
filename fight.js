@@ -22,7 +22,24 @@ let fight = function(target, client, username, mssg){
         }
 
         getUserStats(username).then(function(userstats) {//if user is in
-            
+            if (userstats.health <= 0){
+                return client.say(target, `KUKW you can't fight you're dead but you can $revive`);
+            }
+
+            if (robbedstats.health <= 0){
+                return client.say(target, `reeferSad the person is already dead`);
+            }
+
+            if (userstats.energy <= 0){
+                return client.say(target, `KUKW ${username} you're too tired`);
+            }                
+
+            if (robbedstats.energy <= 0){
+                return client.say(target, `PogO ${robpers} is too tired`);
+            }
+
+            scoring(username, robpers).then(function(score){ //when scoring() is done
+            })
             
         }).catch(function(myReject) { //if user is not in
             client.say(target, myReject);
