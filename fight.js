@@ -2,6 +2,7 @@ let scoring = require(`./score.js`).scoring;
 let getUserStats = require(`./users/getUserStats.js`).getUserStats;
 let updateUserStats = require(`./users/updateUserStats`).updateUserStats;
 let diceroll = require(`./functions.js`).diceroll
+let resetUserStats = require(`./users/resetUserStats.js`).resetUserStats;
 
 let fight = function(target, client, username, mssg){
     var cmdsplt;
@@ -95,6 +96,36 @@ let fight = function(target, client, username, mssg){
                     }
                 }
 
+                getUserStats(username).then(function(userstats) {
+                    var loot;
+                    if (userstats.health <= 0){
+                        getUserStats(robpers).then(function(robbedstats){
+                            if (robbedstats.health <= 0){
+                                resetUserStats(username).then(function(){
+                                    client.say(target, `KUKW both ${username} and ${robpers} died, a homeless person walking by got their money`)
+                                })
+                                resetUserStats(robpers);
+                            }
+
+                            if (robbedstats.health > 0){
+                                if (beaten === 1){
+                                    client.say(target, `after getting beat up ${username} got murdered and looted by ${robpers} reeferSad`);
+                                }
+                                else{
+                                    client.say(target, `${robpers} woke up after getting beat up and murdered ${username} PepeLoser Stab`);
+                                }
+        
+                                loot = userstats.money;
+                                if (loot >= 0){
+                                    updateUserStats(robpers, 0, 0, loot);
+                                    updateUserStats(username, 0, 0, -loot)
+                                }
+                            }
+                        })
+                            
+                    }
+                    
+                })
             })
             
         }).catch(function(myReject) { //if user is not in
