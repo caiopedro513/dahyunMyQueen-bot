@@ -19,7 +19,7 @@ let scoring = function(username, robpers){
                 }
             }
             if (strrob == undefined || strusr == undefined){
-                myReject("Did not find them");  // when error
+                myReject(`Did not find them ${robpers}`);  // when error
             }
             else {
                 var score = ((enrrob + strrob) - (strusr + enrusr));

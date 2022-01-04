@@ -9,6 +9,7 @@ let fight = function(target, client, username, mssg){
     var robpers;
     var loot;
     var beaten = 0;
+    numrol = diceroll();
     if (mssg.indexOf("@") === -1){
         cmdsplt = mssg.split(' ');
         robpers = cmdsplt[1];
@@ -20,6 +21,7 @@ let fight = function(target, client, username, mssg){
         robpers = cmdsplt;
     }
     getUserStats(robpers).then(function(robbedstats){//if robpers is in
+        robpers = robbedstats.username;
         if (username == robbedstats.username){
             return client.say(target, `KUKW you can't fight yourself`);
         }
@@ -43,7 +45,7 @@ let fight = function(target, client, username, mssg){
 
             scoring(username, robpers).then(function(score){ //when scoring() is done
                 if (score < 0){
-                    numrol = diceroll();
+                    
 
                     if (numrol >= 100 - score*-1){
                         updateUserStats(username, -20, -25, -50).then(function(){
