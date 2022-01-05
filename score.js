@@ -11,11 +11,11 @@ let scoring = function(username, robpers){
             for (var i = 0; i < results.length; i++){
                 if (results[i].username == robpers){
                     strrob = results[i].strength;
-                    enrrob = results[i].energy;
+                    enrrob = results[i].energy / 2;
                 }
                 if (results[i].username == username){
                     strusr = results[i].strength;
-                    enrusr = results[i].energy;
+                    enrusr = results[i].energy / 2;
                 }
             }
             if (strrob == undefined || strusr == undefined){
