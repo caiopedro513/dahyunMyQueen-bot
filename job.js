@@ -13,7 +13,7 @@ let job = function(target, client, username, numrol){
                         client.say(target, `BertinhoOverheat you're too tired to work`)
                     }
                     else{
-                        if (numrol >= 15 && numrol < 95){
+                        if (numrol >= 5 && numrol < 95){
                             connection.query(`UPDATE fightclubstats SET money = money + 25, energy = energy - 30 WHERE username = ?`, [username], function(error, results, fields){
                                 client.say(target, `yeeeeeeeeeeeeeeeeeeees you had a nice day at work +$25 -⚡30`);
                             })
@@ -24,7 +24,7 @@ let job = function(target, client, username, numrol){
                                  you had a great day at work and your boss gave you extra money +$50 -⚡30`);
                             })
                         }
-                        if (numrol < 15){
+                        if (numrol < 5){
                             connection.query(`UPDATE fightclubstats SET money = money - 25, energy = energy - 50 WHERE username = ?`, [username], function(error, results, fields){
                                 client.say(target, `rageW it was a nice day in work but you got robbed on your way home -$25 -⚡50`);
                             })
