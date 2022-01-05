@@ -1,37 +1,34 @@
+const { getUserStats } = require("./users/getUserStats");
+const { updateUserStats } = require("./users/updateUserStats");
+
 let job = function(target, client, username, numrol){
-    connection.query(`SELECT username FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields) {
-        if (results.length === 0){
+    getUserStats(username, username).then(function(userstats){
+        if (userstats.length === 0){
             client.say(target, `${username} is not even here KUKW but feel free to $join`);
         }
         else{
-            connection.query(`SELECT health, energy FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields){
-                if (results[0].health <= 0){
-                    client.say(target, `Susge dead people can't work (i think) try $revive`);
-                }
-                else{
-                    if (results[0].energy <= 0){
-                        client.say(target, `BertinhoOverheat you're too tired to work`)
-                    }
-                    else{
-                        if (numrol >= 5 && numrol < 95){
-                            connection.query(`UPDATE fightclubstats SET money = money + 25, energy = energy - 30 WHERE username = ?`, [username], function(error, results, fields){
-                                client.say(target, `yeeeeeeeeeeeeeeeeeeees you had a nice day at work +$25 -⚡30`);
-                            })
-                        }
-                        if (numrol >= 95){
-                            connection.query(`UPDATE fightclubstats SET money = money + 50, energy = energy - 30 WHERE username = ?`, [username], function(error, results, fields){
-                                client.say(target, `SuperIdoldexiaorongdoumeinidetianbayuezhengwudeyangguangdoumeiniyaoyanreai105Cdenididiqingchundezhen 
-                                 you had a great day at work and your boss gave you extra money +$50 -⚡30`);
-                            })
-                        }
-                        if (numrol < 5){
-                            connection.query(`UPDATE fightclubstats SET money = money - 25, energy = energy - 50 WHERE username = ?`, [username], function(error, results, fields){
-                                client.say(target, `rageW it was a nice day in work but you got robbed on your way home -$25 -⚡50`);
-                            })
-                        }
-                    }
-                }
-            })
+            if (userstats.health <= 0){
+                return client.say(target, `Susge dead people can't work (i think) try $revive`);
+            }            
+            if (userstats.energy <= 0){
+                return client.say(target, `BertinhoOverheat you're too tired to work`)
+            }
+            if (numrol >= 5 && numrol < 95){
+                updateUserStats(username, 0, -30, 25, 0).then(function(){
+                    return client.say(target, `yeeeeeeeeeeeeeeeeeeees you had a nice day at work +$25 -⚡30`);
+                })
+            }
+            if (numrol >= 95){
+                updateUserStats(username, 0, -15, 150, 0).then(function(){
+                    return client.say(target, `SuperIdoldexiaorongdoumeinidetianbayuezhengwudeyangguangdoumeiniyaoyanreai105Cdenididiqingchundezhen 
+                        this is your lucky day your boss was so happy he gave everyone extra money +$150 -⚡15`);
+                })
+            }
+            if (numrol < 5){
+                updateUserStats(username, 0, -35, -25, 0).then(function(){
+                    return client.say(target, `rageW it was a nice day in work but you got robbed on your way home -$25 -⚡35`);
+                })
+            }
         }
     })
 }
