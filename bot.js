@@ -237,7 +237,7 @@ function onMessageHandler (target, context, msg, self) {
         update(target, client);
     }
     //job
-    if (commandName.startsWith("$job")){
+    if (commandName.startsWith("$job") || commandName.startsWith("$work")){
         job(target, client, context.username, diceroll());
     }
 }
