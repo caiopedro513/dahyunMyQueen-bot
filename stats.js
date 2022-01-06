@@ -19,8 +19,8 @@ let stats = function(target, client, username, mssg){
         if (userstats.length == 0){
             return client.say(target, `KUKW ${tgtpers} is not even feel free to $join`);
         }
-        return client.say(target, `|Username : ${userstats.username} | Money : ${userstats.money} | Energy : ${userstats.energy} 
-        | Health: ${userstats.health} | Strength : ${userstats.strength}|`);
+        return client.say(target, `Username : ${userstats.username} | Money : ${userstats.money} | Energy : ${userstats.energy} 
+        | Health: ${userstats.health} | Strength : ${userstats.strength}`);
     })
 }
 
