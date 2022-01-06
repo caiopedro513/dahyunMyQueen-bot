@@ -182,7 +182,7 @@ function onMessageHandler (target, context, msg, self) {
     }
     //leaderboard
     if (commandName.startsWith("$leaderboard")){
-        leaderboard(target, client, cdl);
+        leaderboard(target, client, cdl, commandName);
     }
     //dice
     if (commandName === "$dice"){
