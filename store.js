@@ -31,12 +31,12 @@ let store = function(target, client, username, message, sorbuy){
                                 var rolled = diceroll();
                                 if (rolled >= 65){
                                     connection.query(`UPDATE fightclubstats SET energy = energy - 10 WHERE username = ?`, [username], function(error, results, fields){
-                                        client.say(target, `WideHardo Clap cops saw you trying not to pay but you escaped`);
+                                        client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
                                     })
                                 }
                                 else{
                                     connection.query(`UPDATE fightclubstats SET health = 0 WHERE username = ?`, [username], function (error, results, fields){
-                                        client.say(target, `monkaGun monkaH police caught you trying to steal and you got murdered in jail`);
+                                        client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
                                     })
                                 }
                             }
@@ -45,21 +45,21 @@ let store = function(target, client, username, message, sorbuy){
                                     case "food":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 10, energy = energy + 10 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `peepoFat you had a nice meal +❤10 +⚡10 💰${results[0].money}`);
+                                                client.say(target, `peepoFat ${username} you had a nice meal +❤10 +⚡10 💰${results[0].money}`);
                                             })
                                         })
                                         break;
                                     case "drink":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 2, energy = energy + 5 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `OFFLINECHAT WineTime you had a glass of wine and +❤2 +⚡5 💰${results[0].money}`);
+                                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and +❤2 +⚡5 💰${results[0].money}`);
                                             })
                                         })
                                         break;
                                     case "cigarette":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health - 80, energy = energy + 20 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `monkeSmoke you smoked a whole pack of cigarettes -❤80 +⚡20 💰${results[0].money}`);
+                                                client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes -❤80 +⚡20 💰${results[0].money}`);
                                             })
                                         })
                                         connection.query(`SELECT health FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
@@ -74,7 +74,7 @@ let store = function(target, client, username, message, sorbuy){
                         })
                     }
                     if (storage[choice] == undefined){
-                        client.say(target, `you can't buy that KUKW`);
+                        client.say(target, `${username} you can't buy that KUKW`);
                     }
                 })
             }
