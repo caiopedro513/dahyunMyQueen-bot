@@ -40,6 +40,7 @@ let store = require(`./store.js`).store;
 let suggestion = require(`./suggestion.js`).suggestion;
 let update = require(`./update.js`).update;
 let job = require(`./job.js`).job;
+let stats = require(`./stats.js`).stats;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -239,6 +240,10 @@ function onMessageHandler (target, context, msg, self) {
     //job
     if (commandName.startsWith("$job") || commandName.startsWith("$work")){
         job(target, client, context.username, diceroll());
+    }
+    //stats
+    if (commandName.startsWith("$stats")){
+        stats(target, client, context.username, commandName);
     }
 }
 
