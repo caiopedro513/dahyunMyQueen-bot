@@ -45,21 +45,21 @@ let store = function(target, client, username, message, sorbuy){
                                     case "food":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 10, energy = energy + 10 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `peepoFat ${username} you had a nice meal +❤10 +⚡10 💰${results[0].money}`);
+                                                client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [${results[0].money}💰]`);
                                             })
                                         })
                                         break;
                                     case "drink":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 2, energy = energy + 5 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and +❤2 +⚡5 💰${results[0].money}`);
+                                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [${results[0].money}💰]`);
                                             })
                                         })
                                         break;
                                     case "cigarette":
                                         connection.query(`UPDATE fightclubstats SET money = money - ?, health = health - 80, energy = energy + 20 WHERE username = ?`, [storage[choice] ,username], function(error, results, fields){
                                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-                                                client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes -❤80 +⚡20 💰${results[0].money}`);
+                                                client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [-80❤] [+20⚡] [${results[0].money}💰]`);
                                             })
                                         })
                                         connection.query(`SELECT health FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){

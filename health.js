@@ -18,7 +18,7 @@ let health = function(target, client, username, mssg){
         }
         else{
             connection.query(`SELECT health FROM fightclubstats WHERE username = ?`, [tgtpers], function(error, results, fields){
-                client.say(target, `${tgtpers} has  ❤${results[0].health}`);
+                client.say(target, `${tgtpers} has  ${results[0].health}❤`);
             })
         }
     })

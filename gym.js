@@ -35,14 +35,14 @@ let gym = function(target, client, username){
                 else{
                     updateUserStats(username, 0, -10, -75, 15);
                     getUserStats(username, username).then(function(userstats){
-                        return client.say(target, `BillyApprove ${username} you worked out really hard great job +15💪 💰${userstats.money}`);
+                        return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [${userstats.money}💰]`);
                     })
                 }
             }
             if (price > 1){
                 updateUserStats(username, 0, -10, -price, 15);
                 getUserStats(username, username).then(function(userstats){
-                    return client.say(target, `BillyApprove ${username} you worked out really hard great job +15💪 💰${userstats.money}`);
+                    return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [${userstats.money}💰]`);
                 })
             }
         })
