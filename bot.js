@@ -41,6 +41,7 @@ let suggestion = require(`./suggestion.js`).suggestion;
 let update = require(`./update.js`).update;
 let job = require(`./job.js`).job;
 let stats = require(`./stats.js`).stats;
+let showprice = require(`./showprice.js`).showprice;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -244,6 +245,10 @@ function onMessageHandler (target, context, msg, self) {
     //stats
     if (commandName.startsWith("$stats")){
         stats(target, client, context.username, commandName);
+    }
+    //prices
+    if (commandName.startsWith("$prices")){
+        showprice(target, client, context.username);
     }
 }
 
