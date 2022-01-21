@@ -46,6 +46,8 @@ let gym = function(target, client, username){
                 })
             }
         })
+    }).catch(function(){
+        return client.say(target, `${username} is not even here KUKW but feel free to $join`);
     })
 }
 module.exports = {gym};
