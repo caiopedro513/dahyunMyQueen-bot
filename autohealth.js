@@ -20,9 +20,19 @@ let autohealth = function(){
 }
 
 let autoenergy = function(){
-connection.query('UPDATE fightclubstats SET energy = energy + 1 WHERE energy < 100', function(error, results, fields){
-})
+    connection.query('UPDATE fightclubstats SET energy = energy + 1 WHERE energy < 100', function(error, results, fields){
+    })
 }
 
+let cdcheck = function(){
+    let tempcd = new Date();
+    connection.query('SELECT * FROM persons', function(error, results, fields){
+        connection.query('DELETE * FROM persons WHERE timelog < ?', [tempcd], function(error, results, fields){
+            console.log(':)');
+        })
+    })
+}
+
+setInterval(cdcheck, 60*1000);
 setInterval(autoenergy, 60*1000);
 setInterval(autohealth, 30*60*1000);

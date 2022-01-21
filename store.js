@@ -14,6 +14,10 @@ const storage = {
     cigarette : {
         price : 5, 
         props : '[-80❤] [+20⚡]'
+    },
+    energy_drink : {
+        price : 45,
+        props : '[+150⚡] [1hr]'
     }
 };
 
@@ -76,6 +80,32 @@ let store = function(target, client, username, message, sorbuy){
                                 }
                             })
                         })
+                        break;
+
+                    case "energy_drink":
+                        connection.query('SELECT * FROM persons WHERE username = ?', [username], function(error, results, fields){
+                            let exist = false;
+                            if (results != undefined){
+                                exist = true;                         
+                                if (results.length != 0){
+                                    return client.say(target, `XQC ${username} wait for cooldown`);    
+                                }
+                            }
+                            updateUserStats(username, 0, 150, -storage[choice].price, 0).then(function(){
+                                getUserStats(username, username).then(function(userstats){
+                                    client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);
+                                })
+                            })
+                            let time = new Date();
+                            time.setHours(time.getHours() + 1);
+                            if (exist == false){
+                                connection.query(`INSERT INTO persons (username, timelog) VALUES (?, ?)`, [username, time], function(error, results, fields) {
+                                    console.log(":)");
+                                })
+                            }
+                        })
+                        break;
+                        
                     default:
                         break;
                 }
