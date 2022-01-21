@@ -27,8 +27,7 @@ let autoenergy = function(){
 let cdcheck = function(){
     let tempcd = new Date();
     connection.query('SELECT * FROM persons', function(error, results, fields){
-        connection.query('DELETE * FROM persons WHERE timelog < ?', [tempcd], function(error, results, fields){
-            console.log(':)');
+        connection.query('DELETE FROM persons WHERE timelog < ?', [tempcd], function(error, results, fields){
         })
     })
 }

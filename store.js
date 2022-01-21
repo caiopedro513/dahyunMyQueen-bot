@@ -84,9 +84,7 @@ let store = function(target, client, username, message, sorbuy){
 
                     case "energy_drink":
                         connection.query('SELECT * FROM persons WHERE username = ?', [username], function(error, results, fields){
-                            let exist = false;
                             if (results != undefined){
-                                exist = true;                         
                                 if (results.length != 0){
                                     return client.say(target, `XQC ${username} wait for cooldown`);    
                                 }
@@ -98,11 +96,8 @@ let store = function(target, client, username, message, sorbuy){
                             })
                             let time = new Date();
                             time.setHours(time.getHours() + 1);
-                            if (exist == false){
-                                connection.query(`INSERT INTO persons (username, timelog) VALUES (?, ?)`, [username, time], function(error, results, fields) {
-                                    console.log(":)");
-                                })
-                            }
+                            connection.query(`INSERT INTO persons (username, timelog) VALUES (?, ?)`, [username, time], function(error, results, fields) {
+                            })
                         })
                         break;
                         
