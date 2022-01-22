@@ -42,6 +42,7 @@ let update = require(`./update.js`).update;
 let job = require(`./job.js`).job;
 let stats = require(`./stats.js`).stats;
 let showprice = require(`./showprice.js`).showprice;
+let slot = require(`./slotmachine/slots.js`).slot;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -249,6 +250,14 @@ function onMessageHandler (target, context, msg, self) {
     //prices
     if (commandName.startsWith("$prices")){
         showprice(target, client, context.username);
+    }
+    //prize
+    if (commandName.startsWith("$prize")){
+        slot(target, client, commandName, context.username, true);
+    }
+    //slot
+    if (commandName.startsWith("$slot")){
+        slot(target, client, commandName, context.username, false);
     }
 }
 
