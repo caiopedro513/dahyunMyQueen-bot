@@ -1,6 +1,7 @@
 let emotes = ['COCK', 'dias', 'monkaX', 'PepeLoser', 'podium', 'rageW', 'rgpIRL', 'StupidFuckinMistakesMan', 'sanaZoom',
 'SuperIdoldexiaorongdoumeinidetianbayuezhengwudeyangguangdoumeiniyaoyanreai105Cdenididiqingchundezhen',
-'TwiceGood', 'xqcL', 'dahyunWoah', 'Pogplant', ':d'];
+'TwiceGood', 'xqcL', 'dahyunWoah', 'Pogplant', ':d', 'BAAAAAAAAT', 'dahyunLALALA', 'dahyunWink', 'COPIUM', 
+'chilling', 'Chatting', 'ICAN', 'GAMBAADDICT', 'Goose', 'HEHEHEHE'];
 
 let rndemote = function(){
     let roll = Math.floor(Math.random() * emotes.length);

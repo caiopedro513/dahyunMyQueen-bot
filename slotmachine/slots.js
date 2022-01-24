@@ -12,8 +12,8 @@ let slot = function(target, client, message, username, isprize){
             client.say(target, `${username} prize is $${prize}`);
         })
     }
-
     cmdsplt = message.split(' ');
+    if (cmdsplt.length == 1) cmdsplt = [ '$slot', '10' ];
     cmdsplt = cmdsplt[1].trim();
     let bet = Number(cmdsplt);
 
@@ -28,8 +28,8 @@ let slot = function(target, client, message, username, isprize){
                     return client.say(target, `VeryPog ${username} Tssk you can't bet more than you have`);
                 }
 
-                if (bet < 1){
-                    return client.say(target, `UwU ${username} minimum bet is $1`);
+                if (bet < 10){
+                    return client.say(target, `UwU ${username} minimum bet is $10`);
                 }
                 
                 s().then(function(finalresults){
