@@ -1,4 +1,5 @@
 let pricing = require(`./price.js`).pricing;
+let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStats;
 
 let heal = function(target, client, username){
     connection.query(`SELECT username FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields) {
@@ -22,6 +23,7 @@ let heal = function(target, client, username){
                                 else{
                                     connection.query(`UPDATE fightclubstats SET money = money - 100, health = health + 40 WHERE username = ?`, [username], function(error, results, fields){
                                         connection.query(`SELECT health, money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
+                                            updateSlotStats(100);
                                             client.say(target, `twiceLove you got healed by ❤40 and now has [${results[0].health}❤] [${results[0].money}💰]`);
                                         })
                                     })
@@ -31,6 +33,7 @@ let heal = function(target, client, username){
                         if (price > 1){
                             connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 40 WHERE username = ?`, [price, username], function(error, results, fields){
                                 connection.query(`SELECT health, money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
+                                    updateSlotStats(price);
                                     client.say(target, `twiceLove you got healed by ❤40 and now has [${results[0].health}❤] [${results[0].money}💰]`);
                                 })
                             })
