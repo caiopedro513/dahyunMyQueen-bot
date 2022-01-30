@@ -20,6 +20,9 @@ let fight = function(target, client, username, mssg){
         cmdsplt = cmdsplt[0].trim();
         robpers = cmdsplt;
     }
+    getUserStats(username, username).then(function(userstats) {}).catch(function(myReject) {
+        client.say(target, `KUKW ${username} you are not in try to $join`);
+    })
     getUserStats(robpers, username).then(function(robbedstats){//if robpers is in
         robpers = robbedstats.username;
         if (username == robbedstats.username){
@@ -150,8 +153,6 @@ let fight = function(target, client, username, mssg){
                 })
             })
             
-        }).catch(function(myReject) { //if user is not in
-            client.say(target, myReject);
         })
 
     }).catch(function(myReject){//if person is not in
