@@ -49,10 +49,11 @@ let store = function(target, client, username, message, sorbuy){
                         return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
                     })
                 }
-                //else
-                updateUserStats(username, -userstats.health, 0, 0, 0).then(function(){
-                    return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
-                })
+                else{
+                    updateUserStats(username, -userstats.health, 0, 0, 0).then(function(){
+                        return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
+                    })
+                }
             }
 
             else{
@@ -87,7 +88,7 @@ let store = function(target, client, username, message, sorbuy){
                         break;
 
                     case "energy_drink":
-                        connection.query('SELECT * FROM persons WHERE username = ?', [username], function(error, results, fields){
+                        connection.query('SELECT * FROM persons WHERE username = ? AND reason = ?', [username, 'energy_drink'], function(error, results, fields){
                             if (results != undefined){
                                 if (results.length != 0){
                                     return client.say(target, `XQC ${username} wait for cooldown`);    
@@ -101,7 +102,7 @@ let store = function(target, client, username, message, sorbuy){
                             })
                             let time = new Date();
                             time.setHours(time.getHours() + 1);
-                            connection.query(`INSERT INTO persons (username, timelog) VALUES (?, ?)`, [username, time], function(error, results, fields) {
+                            connection.query(`INSERT INTO persons (username, timelog, reason) VALUES (?, ?, ?)`, [username, time, 'energy_drink'], function(error, results, fields) {
                             })
                         })
                         break;

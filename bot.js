@@ -43,6 +43,7 @@ let job = require(`./job.js`).job;
 let stats = require(`./stats.js`).stats;
 let showprice = require(`./showprice.js`).showprice;
 let slot = require(`./slotmachine/slots.js`).slot;
+let sleep = require(`./sleep.js`).sleep;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -258,6 +259,14 @@ function onMessageHandler (target, context, msg, self) {
     //slot
     if (commandName.startsWith("$slot")){
         slot(target, client, commandName, context.username, false);
+    }
+    //hotels
+    if (commandName.startsWith("$hotel prices")){
+        sleep(context.username, 'price', client, target, commandName);
+    }
+    //sleep
+    if (commandName.startsWith("$sleep")){
+        sleep(context.username, 'sleep', client, target, commandName);
     }
 }
 
