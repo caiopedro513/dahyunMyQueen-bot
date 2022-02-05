@@ -14,18 +14,18 @@ let job = function(target, client, username, numrol){
                 return client.say(target, `BertinhoOverheat ${username} you're too tired to work`)
             }
             if (numrol >= 5 && numrol < 95){
-                updateUserStats(username, 0, -30, 25, 0).then(function(){
+                updateUserStats(username, 0, -30, 25, 0, 0).then(function(){
                     return client.say(target, `yeeeeeeeeeeeeeeeeeeees ${username} you had a nice day at work [+$25] [-30⚡]`);
                 })
             }
             if (numrol >= 95){
-                updateUserStats(username, 0, -15, 150, 0).then(function(){
+                updateUserStats(username, 0, -15, 150, 0, 0).then(function(){
                     return client.say(target, `SuperIdoldexiaorongdoumeinidetianbayuezhengwudeyangguangdoumeiniyaoyanreai105Cdenididiqingchundezhen 
                        ${username} this is your lucky day your boss was so happy he gave everyone extra money [+$150] [-15⚡]`);
                 })
             }
             if (numrol < 5){
-                updateUserStats(username, 0, -35, -25, 0).then(function(){
+                updateUserStats(username, 0, -35, -25, 0, 0).then(function(){
                     return client.say(target, `rageW ${username} it was a nice day in work but you got robbed on your way home [-$25] [-35⚡]`);
                 })
             }

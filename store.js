@@ -6,11 +6,11 @@ let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStat
 const storage = {
     food : {
         price : 30, 
-        props : '[+10❤] [+10⚡]'
+        props : '[+10❤] [+10⚡] [+10 fat ]'
     },
     drink : {
         price : 15, 
-        props : '[+2❤] [+5⚡]'
+        props : '[+2❤] [+5⚡] [+3 fat ]'
     },
     cigarette : {
         price : 5, 
@@ -45,12 +45,12 @@ let store = function(target, client, username, message, sorbuy){
             if (userstats.money < storage[choice].price){
                 var rolled = diceroll();
                 if (rolled >= 65){
-                    updateUserStats(username, 0, -10, 0, 0).then(function(){
+                    updateUserStats(username, 0, -10, 0, 0, 0).then(function(){
                         return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
                     })
                 }
                 else{
-                    updateUserStats(username, -userstats.health, 0, 0, 0).then(function(){
+                    updateUserStats(username, -userstats.health, 0, 0, 0, 0).then(function(){
                         return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
                     })
                 }
@@ -59,24 +59,24 @@ let store = function(target, client, username, message, sorbuy){
             else{
                 switch(choice){
                     case "food":
-                        updateUserStats(username, 10, 10, -storage[choice].price, 0).then(function(){
+                        updateUserStats(username, 10, 10, -storage[choice].price, 0, 10).then(function(){
                             getUserStats(username, username).then(function(userstats){
                                 updateSlotStats(storage[choice].price);
-                                client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [${userstats.money}💰]`);
+                                client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [+10 fat ] [${userstats.money}💰]`);
                             })
                         })
                         break;
                     case "drink":
-                        updateUserStats(username, 2, 5, -storage[choice].price, 0).then(function(){
+                        updateUserStats(username, 2, 5, -storage[choice].price, 0, 3).then(function(){
                             getUserStats(username, username).then(function(userstats){
                                 updateSlotStats(storage[choice].price);
-                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [${userstats.money}💰]`);
+                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [+3 fat ] [${userstats.money}💰]`);
                             })
                         })
                         break;
 
                     case "cigarette":
-                        updateUserStats(username, -80, 20, -storage[choice].price, 0).then(function(){
+                        updateUserStats(username, -80, 20, -storage[choice].price, 0, 0).then(function(){
                             getUserStats(username, username).then(function(userstats){
                                 updateSlotStats(storage[choice].price);
                                 client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [-80❤] [+20⚡] [${userstats.money}💰]`);
@@ -94,7 +94,7 @@ let store = function(target, client, username, message, sorbuy){
                                     return client.say(target, `XQC ${username} wait for cooldown`);    
                                 }
                             }
-                            updateUserStats(username, 0, 150, -storage[choice].price, 0).then(function(){
+                            updateUserStats(username, 0, 150, -storage[choice].price, 0, 0).then(function(){
                                 getUserStats(username, username).then(function(userstats){
                                     updateSlotStats(storage[choice].price);
                                     client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);

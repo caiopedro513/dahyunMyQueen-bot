@@ -34,12 +34,12 @@ let slot = function(target, client, message, username, isprize){
                 
                 s().then(function(finalresults){
 
-                    updateUserStats(username, 0, 0, -bet, 0);
+                    updateUserStats(username, 0, 0, -bet, 0, 0);
 
                     client.say(target, `${finalresults}`)
                     
                     if (finalresults[0] == finalresults[1] && finalresults[0] == finalresults[2]){
-                        updateUserStats(username, 0, 0, prize, 0);
+                        updateUserStats(username, 0, 0, prize, 0, 0);
                         updateSlotStats(-prize);
                         return client.say(target, `peepoClap ${username} you just won $${prize}`);
                     }
@@ -48,7 +48,7 @@ let slot = function(target, client, message, username, isprize){
                         for (let p = t + 1; p < finalresults.length; p++){
                             if (finalresults[t] == finalresults[p]){
                                 updateSlotStats(-bet*0.25);
-                                updateUserStats(username, 0, 0, bet*0.25, 0)
+                                updateUserStats(username, 0, 0, bet*0.25, 0, 0)
                                 return client.say(target, `yeah ${username} not the best results but at least you got $${bet * 0.25}`);
                             }
                         }

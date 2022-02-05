@@ -6,23 +6,27 @@ let scoring = function(username, robpers){
     var strusr;
     var enrrob;
     var enrusr;
+    let fatusr;
+    let fatrob;
     let myPromise = new Promise(function(myResolve, myReject) {
-        connection.query('SELECT username, strength, energy FROM fightclubstats WHERE username IN (?, ?)', [robpers, username], function(error, results, fields){
+        connection.query('SELECT username, strength, energy, fat FROM fightclubstats WHERE username IN (?, ?)', [robpers, username], function(error, results, fields){
             for (var i = 0; i < results.length; i++){
                 if (results[i].username == robpers){
                     strrob = results[i].strength;
                     enrrob = results[i].energy / 2;
+                    fatrob = results[i].fat * 0.25
                 }
                 if (results[i].username == username){
                     strusr = results[i].strength;
                     enrusr = results[i].energy / 2;
+                    fatusr = results[i].fat * 0.25
                 }
             }
             if (strrob == undefined || strusr == undefined){
                 myReject(`Did not find them ${robpers}`);  // when error
             }
             else {
-                var score = ((enrrob + strrob) - (strusr + enrusr));
+                var score = (((enrrob + strrob) - fatrob) - ((strusr + enrusr) - fatusr));
                 score = score / 100000;
                 myResolve(score); // when successful
             }
