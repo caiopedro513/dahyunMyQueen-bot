@@ -5,7 +5,9 @@ let revive = function(target, client, username){
         }
         else{
             connection.query(`UPDATE fightclubstats SET money = 100, health = 100, strength = 25, energy = 25, fat = 10 WHERE username = ?`, [username], function (error, results, fields){
-                client.say(target, `POGGING ${username} is back to life`);
+                connection.query('DELETE FROM persons WHERE username = ?', [username], function(error, results, fields){
+                    client.say(target, `POGGING ${username} is back to life`);
+                })
             })
         }
     })
