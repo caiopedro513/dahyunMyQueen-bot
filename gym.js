@@ -24,7 +24,7 @@ let gym = function(target, client, username){
 
                 if (userstats.money < 75){
                     client.say(target, `${username} you got beat up at the gym after trying not to pay peepoSmash`);
-                    updateUserStats(username, -30, 0, 0, 0, 0);
+                    updateUserStats(username, -30, 0, 0, 0, 0, 0);
                     getUserStats(username, username).then(function(userstats){
                         if (userstats.health <= 0){
                             return client.say(target, `reeferSad ${username} died`);
@@ -33,7 +33,7 @@ let gym = function(target, client, username){
                 }
 
                 else{
-                    updateUserStats(username, 0, -10, -75, 15, -5);
+                    updateUserStats(username, 0, -10, -75, 15, -5, 0);
                     getUserStats(username, username).then(function(userstats){
                         updateSlotStats(75);
                         return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-5 fat ] [${userstats.money}💰]`);
@@ -41,7 +41,7 @@ let gym = function(target, client, username){
                 }
             }
             if (price > 1){
-                updateUserStats(username, 0, -10, -price, 15, -5);
+                updateUserStats(username, 0, -10, -price, 15, -5, 0);
                 getUserStats(username, username).then(function(userstats){
                     updateSlotStats(price);
                     return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-5 fat ] [${userstats.money}💰]`);

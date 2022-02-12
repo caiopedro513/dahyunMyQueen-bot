@@ -1,5 +1,5 @@
 let update = function(target, client){
-    client.say(target, `fat added`);
+    client.say(target, `smartness aded`);
 }
 
 module.exports = {update}

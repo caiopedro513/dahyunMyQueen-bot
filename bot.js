@@ -27,15 +27,11 @@ let heal = require(`./heal.js`).heal;
 let revive = require(`./revive.js`).revive;
 let namecheck = require(`./namecheck.js`).namecheck;
 let join = require(`./join.js`).join;
-let money = require(`./money.js`).money;
-let health = require(`./health.js`).health;
 let fight = require(`./fight.js`).fight;
 let leaderboard = require(`./leaderboard.js`).leaderboard;
 let odds = require(`./odds.js`).odds;
 let gym = require(`./gym.js`).gym;
-let strength = require(`./strength.js`).strength;
 let help = require(`./help.js`).help;
-let energy = require(`./energy.js`).energy;
 let store = require(`./store.js`).store;
 let suggestion = require(`./suggestion.js`).suggestion;
 let update = require(`./update.js`).update;
@@ -44,7 +40,6 @@ let stats = require(`./stats.js`).stats;
 let showprice = require(`./showprice.js`).showprice;
 let slot = require(`./slotmachine/slots.js`).slot;
 let sleep = require(`./sleep.js`).sleep;
-let fat = require(`./fat`).fat;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -177,14 +172,6 @@ function onMessageHandler (target, context, msg, self) {
     if (commandName.startsWith("$join")){
         join(target, client, context.username);
     }
-    //money
-    if (commandName.startsWith("$money")){
-        money(target, client, context.username, commandName);
-    }
-    //health
-    if (commandName.startsWith("$health")){
-        health(target, client, context.username, commandName);
-    }
     //leaderboard
     if (commandName.startsWith("$leaderboard")){
         leaderboard(target, client, cdl, commandName);
@@ -213,17 +200,9 @@ function onMessageHandler (target, context, msg, self) {
     if (commandName.startsWith("$gym")){
         gym(target, client, context.username);
     }
-    //strength
-    if (commandName.startsWith("$strength")){
-        strength(target, client, context.username, commandName);
-    }
     //help
     if (commandName.startsWith("$help")){
         help(target, client);
-    }
-    //energy
-    if (commandName.startsWith("$energy")){
-        energy(target, client, context.username, commandName);
     }
     //buy
     if (commandName.startsWith("$buy")){
@@ -268,10 +247,6 @@ function onMessageHandler (target, context, msg, self) {
     //sleep
     if (commandName.startsWith("$sleep")){
         sleep(context.username, 'sleep', client, target, commandName);
-    }
-    //fat
-    if (commandName.startsWith("$fat")){
-        fat(target, client, context.username, commandName);
     }
 }
 
