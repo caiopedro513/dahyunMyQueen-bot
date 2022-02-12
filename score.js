@@ -11,7 +11,7 @@ let scoring = function(username, robpers){
     let smrtusr;
     let smrtrob;
     let myPromise = new Promise(function(myResolve, myReject) {
-        connection.query('SELECT username, strength, energy, fat FROM fightclubstats WHERE username IN (?, ?)', [robpers, username], function(error, results, fields){
+        connection.query('SELECT username, strength, energy, fat, smartness FROM fightclubstats WHERE username IN (?, ?)', [robpers, username], function(error, results, fields){
             for (var i = 0; i < results.length; i++){
                 if (results[i].username == robpers){
                     strrob = results[i].strength;
