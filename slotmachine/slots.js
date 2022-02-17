@@ -19,6 +19,9 @@ let slot = function(target, client, message, username, isprize){
 
     let slots = new Promise(function(myResolve, myReject){    
         getUserStats(username, username).then(function(userstats){//if user is in
+            if (userstats.health <= 0){
+                return client.say(target, `KUKW dead people can't gamble`);
+            }
             getSlotStats().then(function(prize){
                 if (Number.isNaN(bet)){
                     return client.say(target, `BONK ${username} you can't bet that`);
