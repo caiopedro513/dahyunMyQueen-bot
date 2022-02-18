@@ -54,14 +54,14 @@ let fight = function(target, client, username, mssg){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
                         })
-                        updateUserStats(robpers, -10, -20, +50, 10, 0, 0);//even without .then it works
+                        updateUserStats(robpers, -10, -20, 50, 10, 0, 0); //even without .then it works
                     }
 
                     else{
                         updateUserStats(robpers, -20, -25, -50, 10, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
-                        updateUserStats(username, -10, -20, +50, 0, 0, 0);
+                        updateUserStats(username, -10, -20, 50, 0, 0, 0);
                     }
                 }
 
@@ -70,15 +70,14 @@ let fight = function(target, client, username, mssg){
                         updateUserStats(robpers, -20, -20, -50, 10, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
-                        updateUserStats(username, -10, -25, +50, 0, 0, 0);
+                        updateUserStats(username, -10, -25, 50, 0, 0, 0);
                     }
                     else{
-                        updateUserStats(username, -20, -25, -50, 10, 0).then(function(){
+                        updateUserStats(username, -20, -25, -50, 10, 0, 0).then(function(){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
                         })
-                        updateUserStats(robpers, -10, -20, +50, 0, 0);
-                        
+                        updateUserStats(robpers, -10, -20, 50, 0, 0, 0);
                     }
                 }
 
@@ -88,7 +87,7 @@ let fight = function(target, client, username, mssg){
                         updateUserStats(robpers, -20, -20, -50, 0, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
-                        updateUserStats(username, -10, -25, +50, 0, 0, 0);
+                        updateUserStats(username, -10, -25, 50, 0, 0, 0);
                     }
 
                     if (numrol < 49){
@@ -96,7 +95,7 @@ let fight = function(target, client, username, mssg){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
                         })
-                        updateUserStats(robpers, -10, -20, +50, 0, 0, 0);
+                        updateUserStats(robpers, -10, -20, 50, 0, 0, 0);
                     }
                 }
 
@@ -125,7 +124,7 @@ let fight = function(target, client, username, mssg){
                                 loot = userstats.money;
                                 if (loot >= 0){
                                     updateUserStats(robpers, 0, 0, loot, 0, 0, 0);
-                                    updateUserStats(username, 0, 0, -loot, 0, 0, 0)
+                                    updateUserStats(username, 0, 0, -loot, 0, 0, 0);
                                 }
                             }
                         }    
@@ -145,7 +144,7 @@ let fight = function(target, client, username, mssg){
                                 loot = robbedstats.money;
                                 if (loot >= 0){
                                     updateUserStats(username, 0, 0, loot, 0, 0, 0);
-                                    updateUserStats(robpers, 0, 0, -loot, 0, 0, 0)
+                                    updateUserStats(robpers, 0, 0, -loot, 0, 0, 0);
                                 }
                             }
                         }
