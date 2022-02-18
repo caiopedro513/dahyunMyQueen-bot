@@ -40,6 +40,7 @@ let stats = require(`./stats.js`).stats;
 let showprice = require(`./showprice.js`).showprice;
 let slot = require(`./slotmachine/slots.js`).slot;
 let sleep = require(`./sleep.js`).sleep;
+let study = require(`./study.js`).study;
 
 var mysql = require('mysql');
 const { dice } = require('./functions.js');
@@ -247,6 +248,10 @@ function onMessageHandler (target, context, msg, self) {
     //sleep
     if (commandName.startsWith("$sleep")){
         sleep(context.username, 'sleep', client, target, commandName);
+    }
+    //study
+    if (commandName.startsWith("$study")){
+        study(context.username, client, target);
     }
 }
 
