@@ -21,6 +21,8 @@ let stats = function(target, client, username, mssg){
         }
         return client.say(target, `Username : ${userstats.username} | Money : ${userstats.money} | Energy : ${userstats.energy} 
         | Health: ${userstats.health} | Strength : ${userstats.strength} | fat : ${userstats.fat} | 5Head : ${userstats.smartness}`);
+    }).catch(function(myReject){
+        client.say(target, myReject);
     })
 }
 
