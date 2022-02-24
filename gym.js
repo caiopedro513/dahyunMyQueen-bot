@@ -33,18 +33,18 @@ let gym = function(target, client, username){
                 }
 
                 else{
-                    updateUserStats(username, 0, -10, -75, 15, -5, 0);
+                    updateUserStats(username, 0, -10, -75, 15, -15, 0);
                     getUserStats(username, username).then(function(userstats){
                         updateSlotStats(75);
-                        return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-5 fat ] [${userstats.money}💰]`);
+                        return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-15 fat ] [${userstats.money}💰]`);
                     })
                 }
             }
             if (price > 1){
-                updateUserStats(username, 0, -10, -price, 15, -5, 0);
+                updateUserStats(username, 0, -10, -price, 15, -15, 0);
                 getUserStats(username, username).then(function(userstats){
                     updateSlotStats(price);
-                    return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-5 fat ] [${userstats.money}💰]`);
+                    return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-15 fat ] [${userstats.money}💰]`);
                 })
             }
         })

@@ -13,7 +13,7 @@ connection.connect();
 console.log("Running :)");
 
 let autohealth = function(){
-    connection.query('UPDATE fightclubstats SET money = money + 5, fat = fat + 5 WHERE health > 0', function(error, results, fields){
+    connection.query('UPDATE fightclubstats SET money = money + 5, fat = fat + 1 WHERE health > 0', function(error, results, fields){
     })
     connection.query('UPDATE fightclubstats SET health = health + 5 WHERE health > 0 AND health < 500', function(error, results, fields){
     })
