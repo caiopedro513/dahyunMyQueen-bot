@@ -44,13 +44,23 @@ let leaderboard = function(target, client, cdl, mssg){
             })
             break;
         case 'smartness':
-            connection.quer(`SELECT username, smartness FROM fightclubstats ORDER BY smartness DESC LIMIT 10`, function(error, results, fields){
+            connection.query(`SELECT username, smartness FROM fightclubstats ORDER BY smartness DESC LIMIT 10`, function(error, results, fields){
                 if (today >= cdl){
                     for (let x = 0; x < results.length; x++){
                         client.say(target, `${x  + 1} - ${results[x].username} - 5Head ${results[x].smartness}`)
                     }
                 }
             })
+            break;
+        case '5head':
+            connection.query(`SELECT username, smartness FROM fightclubstats ORDER BY smartness DESC LIMIT 10`, function(error, results, fields){
+                if (today >= cdl){
+                    for (let x = 0; x < results.length; x++){
+                        client.say(target, `${x  + 1} - ${results[x].username} - 5Head ${results[x].smartness}`)
+                    }
+                }
+            })
+            break;
         default:
             client.say(target, `TROLL Tssk we dont do this here`);
     }

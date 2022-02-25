@@ -2,3 +2,5 @@
 .env
 .vscode/launch.json
 todolist.txt
+botstart.bat
+autohealth.bat
