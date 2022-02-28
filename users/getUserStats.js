@@ -19,7 +19,7 @@ let getUserStats = function(target, username){
             connection.query(`SELECT * FROM fightclubstats WHERE username = ?`, [target], function(error, results, fields){
                 if (results != undefined){
                     if (results.length === 0){
-                        myReject("The person is not in");
+                        myReject(`${username} is not in LULE`);
                     }
                     else {
                         myResolve(results[0]);

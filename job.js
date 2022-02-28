@@ -33,6 +33,8 @@ let job = function(target, client, username, numrol){
                 }
             })
         }
+    }).catch(function(myReject){
+        client.say(target, myReject);
     })
 }
 
