@@ -203,7 +203,7 @@ function onMessageHandler (target, context, msg, self) {
     }
     //help
     if (commandName.startsWith("$help")){
-        help(target, client);
+        help(target, client, commandName);
     }
     //buy
     if (commandName.startsWith("$buy")){
