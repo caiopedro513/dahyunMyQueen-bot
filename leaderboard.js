@@ -49,6 +49,10 @@ let leaderboard = function(target, client, cdl, mssg){
                     for (let x = 0; x < results.length; x++){
                         client.say(target, `${x  + 1} - ${results[x].username} - 5Head ${results[x].smartness}`)
                     }
+                    cdl.setHours( cdl.getHours() + 1);
+                }
+                else{
+                    client.say(target, `KUKW gotta wait for cooldown that i won't tell bcuz i am dumb and can't figure it out <3`);
                 }
             })
             break;
@@ -58,6 +62,10 @@ let leaderboard = function(target, client, cdl, mssg){
                     for (let x = 0; x < results.length; x++){
                         client.say(target, `${x  + 1} - ${results[x].username} - 5Head ${results[x].smartness}`)
                     }
+                    cdl.setHours( cdl.getHours() + 1);
+                }
+                else{
+                    client.say(target, `KUKW gotta wait for cooldown that i won't tell bcuz i am dumb and can't figure it out <3`);
                 }
             })
             break;
