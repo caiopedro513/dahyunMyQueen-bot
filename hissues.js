@@ -37,4 +37,4 @@ let hissues = function(){
     })
 }
 
-module.exports = {hissues}
+module.exports = {hissues};
