@@ -9,6 +9,8 @@ let showprice = function(target, client, username){
             }
             return client.say(target, `Gym : $${price} | Heal : $${price} | Store : type $store`);
         })
+    }).catch(function(){
+        return client.say(target, `${username} is not even here KUKW but feel free to $join`);
     })
 }
 
