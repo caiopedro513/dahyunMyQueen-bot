@@ -20,7 +20,7 @@ let gym = function(target, client, username){
 
         pricing(username).then(function(price){
 
-            if (price == 1){
+            if (price < 75){
 
                 if (userstats.money < 75){
                     client.say(target, `${username} you got beat up at the gym after trying not to pay peepoSmash`);
@@ -33,18 +33,19 @@ let gym = function(target, client, username){
                 }
 
                 else{
-                    updateUserStats(username, 0, -10, -75, 15, -15, 0);
+                    updateUserStats(username, 0, -10, -75, 15, -10, 0);
                     getUserStats(username, username).then(function(userstats){
                         updateSlotStats(75);
-                        return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-15 fat ] [${userstats.money}💰]`);
+                        return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-10 fat ] [${userstats.money}💰]`);
                     })
                 }
             }
-            if (price > 1){
-                updateUserStats(username, 0, -10, -price, 15, -15, 0);
+
+            if (price >= 75){
+                updateUserStats(username, 0, -10, -price, 15, -10, 0);
                 getUserStats(username, username).then(function(userstats){
                     updateSlotStats(price);
-                    return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-15 fat ] [${userstats.money}💰]`);
+                    return client.say(target, `BillyApprove ${username} you worked out really hard great job [+15💪] [-10 fat ] [${userstats.money}💰]`);
                 })
             }
         })

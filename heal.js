@@ -13,7 +13,7 @@ let heal = function(target, client, username){
                 }
                 else{
                     pricing(username).then(function(price){
-                        if (price == 1){
+                        if (price < 100){ 
                             connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function (error, results, fields){
                                 if (results[0].money < 100){
                                     client.say(target, `doctor killed you after seeing you didnt have money to pay him PepeLoser Stab`);
@@ -30,7 +30,7 @@ let heal = function(target, client, username){
                                 }
                             })
                         }
-                        if (price > 1){
+                        if (price >= 100){
                             connection.query(`UPDATE fightclubstats SET money = money - ?, health = health + 40 WHERE username = ?`, [price, username], function(error, results, fields){
                                 connection.query(`SELECT health, money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
                                     updateSlotStats(price);
