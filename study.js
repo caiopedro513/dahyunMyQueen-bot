@@ -18,7 +18,7 @@ let study = function(username, client, target){
 
         if (roll > 10 && roll <= 89){
             updateUserStats(username, 0, -10, 0, 0, 0, 10).then(function(){
-                return client.say(target, `${username} Nerd Mountains are formed by movement within the Earth's crust. The crust itself is made up of several large plates,
+                client.say(target, `${username} Nerd Mountains are formed by movement within the Earth's crust. The crust itself is made up of several large plates,
                  called tectonic plates, which are free floating. These huge chunks of the Earth's crust move within molten rock called magma, which allows them to shift and 
                  collide over time [+ 10 5Head ] [- 10 ⚡]`);
             })
@@ -26,13 +26,13 @@ let study = function(username, client, target){
 
         if (roll >= 90){
             updateUserStats(username, 0, -15, 0, 0, 0, 20).then(function(){
-                return client.say(target, `${username} :Nerd: ax2 + bx + c = 0  [+ 20 5Head ] [- 15 ⚡]`);
+                client.say(target, `${username} :Nerd: ax2 + bx + c = 0  [+ 20 5Head ] [- 15 ⚡]`);
             })
         }
 
         if (roll <= 10){
             updateUserStats(username, 0, -10, 0, 0, 0, 5).then(function(){
-                return client.say(target, `${username} PeepoLearnin Verbs ending in -ar, like falar (to speak):
+                client.say(target, `${username} PeepoLearnin Verbs ending in -ar, like falar (to speak):
 
                 eu falei — I speak
                 
@@ -46,6 +46,16 @@ let study = function(username, client, target){
 
             })
         }
+
+        if (userstats.energy <= 3){
+            let rroll = Math.floor(Math.random() * 1001);
+            if (rroll <= 5){
+                updateUserStats(username, 0, 0, -50, 0, 0, 0).then(function(){
+                    return client.say(target, `HEHEHEHE you got too tired, fell asleep while studying and got robbed [-$50]`);
+                })
+            }
+        }
+        
         
     }).catch(function(myReject){//if person is not in
         client.say(target, myReject);
