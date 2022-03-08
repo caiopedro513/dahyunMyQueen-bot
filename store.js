@@ -6,29 +6,44 @@ let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStat
 const storage = {
     food : {
         price : 30, 
-        props : '[+10❤] [+10⚡] [+10 fat ]'
+        health : 10,
+        energy : 10,
+        fat : 10,
+        props : '[+10❤] [+10⚡] [+10 fat ]',
     },
     drink : {
         price : 15, 
-        props : '[+2❤] [+5⚡] [+3 fat ]'
+        health : 2,
+        energy : 5,
+        fat : 3,
+        props : '[+2❤] [+5⚡] [+3 fat ]',
     },
     cigarette : {
         price : 5, 
-        props : '[-80❤] [+20⚡]'
+        health : -80,
+        energy : 20,
+        fat : 0,
+        props : '[-80❤] [+20⚡]',
     },
     energy_drink : {
         price : 45,
-        props : '[+150⚡] [1hr]'
+        health : 0,
+        energy : 150,
+        fat : 0,
+        props : '[+150⚡] [1hr]',
     }
 };
 
 let store = function(target, client, username, message, sorbuy){
+
     if (sorbuy == 1){  
         for (let x in storage){
             client.say(target, `${x} : $${storage[x].price} ${storage[x].props}`);
         }
     }
+
     else {
+
         trimmssg = message.split(' ');
         choice = trimmssg[1];
         if (!choice) choice = undefined;
@@ -44,8 +59,9 @@ let store = function(target, client, username, message, sorbuy){
 
             if (userstats.money < storage[choice].price){
                 var rolled = diceroll();
+                
                 if (rolled >= 65){
-                    updateUserStats(username, 0, -10, 0, 0, 0, 0).then(function(){
+                    updateUserStats(username, storage[choice].health, storage[choice].energy, 0, 0, storage[choice].fat, 0).then(function(){
                         return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
                     })
                 }
@@ -57,53 +73,53 @@ let store = function(target, client, username, message, sorbuy){
             }
 
             else{
-                switch(choice){
-                    case "food":
-                        updateUserStats(username, 10, 10, -storage[choice].price, 0, 10, 0).then(function(){
+
+                if (choice == 'energy_drink'){
+                    connection.query('SELECT * FROM persons WHERE username = ? AND reason = ?', [username, 'energy_drink'], function(error, results, fields){
+                        if (results != undefined){
+                            if (results.length != 0){
+                                return client.say(target, `XQC ${username} wait for cooldown`);    
+                            }
+                        }
+                        updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choce].fat, 0).then(function(){
                             getUserStats(username, username).then(function(userstats){
                                 updateSlotStats(storage[choice].price);
-                                client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [+10 fat ] [${userstats.money}💰]`);
+                                client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);
                             })
+                        })
+                        let time = new Date();
+                        time.setHours(time.getHours() + 1);
+                        return connection.query(`INSERT INTO persons (username, timelog, reason) VALUES (?, ?, ?)`, [username, time, 'energy_drink'], function(error, results, fields) {})
+                    })
+                }
+
+                else{
+                    updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choice].fat, 0).then(function(){
+                        getUserStats(username, username).then(function(){
+                            updateSlotStats(storage[choice].price);
+                        })
+                    })
+                }
+
+                switch(choice){
+
+                    case "food":
+                        getUserStats(username, username).then(function(userstats){
+                            client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [+10 fat ] [${userstats.money}💰]`);
                         })
                         break;
                     case "drink":
-                        updateUserStats(username, 2, 5, -storage[choice].price, 0, 3, 0).then(function(){
-                            getUserStats(username, username).then(function(userstats){
-                                updateSlotStats(storage[choice].price);
-                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [+3 fat ] [${userstats.money}💰]`);
-                            })
+                        getUserStats(username, username).then(function(userstats){
+                            client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [+3 fat ] [${userstats.money}💰]`);
                         })
                         break;
 
                     case "cigarette":
-                        updateUserStats(username, -80, 20, -storage[choice].price, 0, 0, 0).then(function(){
-                            getUserStats(username, username).then(function(userstats){
-                                updateSlotStats(storage[choice].price);
-                                client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [-80❤] [+20⚡] [${userstats.money}💰]`);
-                                if (userstats.health <= 0){
-                                    client.say(target, `${username} died reeferSad`);
-                                }
-                            })
-                        })
-                        break;
-
-                    case "energy_drink":
-                        connection.query('SELECT * FROM persons WHERE username = ? AND reason = ?', [username, 'energy_drink'], function(error, results, fields){
-                            if (results != undefined){
-                                if (results.length != 0){
-                                    return client.say(target, `XQC ${username} wait for cooldown`);    
-                                }
+                        getUserStats(username, username).then(function(userstats){
+                            client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [-80❤] [+20⚡] [${userstats.money}💰]`);
+                            if (userstats.health <= 0){
+                                client.say(target, `${username} died reeferSad`);
                             }
-                            updateUserStats(username, 0, 150, -storage[choice].price, 0, 0, 0).then(function(){
-                                getUserStats(username, username).then(function(userstats){
-                                    updateSlotStats(storage[choice].price);
-                                    client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);
-                                })
-                            })
-                            let time = new Date();
-                            time.setHours(time.getHours() + 1);
-                            connection.query(`INSERT INTO persons (username, timelog, reason) VALUES (?, ?, ?)`, [username, time, 'energy_drink'], function(error, results, fields) {
-                            })
                         })
                         break;
                         
