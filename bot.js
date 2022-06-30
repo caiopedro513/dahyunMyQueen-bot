@@ -41,9 +41,10 @@ let showprice = require(`./showprice.js`).showprice;
 let slot = require(`./slotmachine/slots.js`).slot;
 let sleep = require(`./sleep.js`).sleep;
 let study = require(`./study.js`).study;
+const { dice } = require('./functions.js');
 
 var mysql = require('mysql');
-const { dice } = require('./functions.js');
+
 globalThis.connection = mysql.createConnection({
   host     : process.env.HOST,
   user     : process.env.USER,

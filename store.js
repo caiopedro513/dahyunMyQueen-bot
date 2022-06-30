@@ -81,7 +81,7 @@ let store = function(target, client, username, message, sorbuy){
                                 return client.say(target, `XQC ${username} wait for cooldown`);    
                             }
                         }
-                        updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choce].fat, 0).then(function(){
+                        updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choice].fat, 0).then(function(){
                             getUserStats(username, username).then(function(userstats){
                                 updateSlotStats(storage[choice].price);
                                 client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);

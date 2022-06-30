@@ -36,4 +36,3 @@ let cdcheck = function(){
 setInterval(cdcheck, 60*1000);
 setInterval(autoenergy, 60*1000);
 setInterval(autohealth, 30*60*1000);
-setInterval(hissues, 15*60*1000);
