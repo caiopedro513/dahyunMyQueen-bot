@@ -41,6 +41,7 @@ let showprice = require(`./showprice.js`).showprice;
 let slot = require(`./slotmachine/slots.js`).slot;
 let sleep = require(`./sleep.js`).sleep;
 let study = require(`./study.js`).study;
+let dungeon = require(`./dungeonf/dungeon.js`).dungeon;
 const { dice } = require('./functions.js');
 
 var mysql = require('mysql');
@@ -253,6 +254,10 @@ function onMessageHandler (target, context, msg, self) {
     //study
     if (commandName.startsWith("$study")){
         study(context.username, client, target);
+    }
+    //dungeon
+    if (commandName.startsWith("$dungeon")){
+        dungeon(commandName, target, client, context.username);
     }
 }
 

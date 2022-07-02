@@ -7,8 +7,6 @@ let mobtarget = function(mssg, username){
         //splits message to get diff
         let cmdsplt = mssg.split(' ');
         let difficulty = cmdsplt[1];
-        console.log(difficulty);
-        let mobs = [];
         let maxstr;
 
         switch(difficulty){ //puts selected targets into mobs list
@@ -33,13 +31,12 @@ let mobtarget = function(mssg, username){
 
         let cuce = new Promise (function(myResolve, myReject){
             connection.query(`SELECT * FROM mobs WHERE strength <= ?`, [maxstr], function(error, results, fields){
-                mobs.push(results);
+                let mobs = results;
                 myResolve(mobs);
             });
         });
 
         cuce.then(function(mobs){
-            console.log(mobs);
             return myResolve(mobs)
         })
     })
