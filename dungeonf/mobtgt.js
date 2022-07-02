@@ -1,47 +1,48 @@
 let scoringd = require(`./dgscoring.js`).scoringd;
-let getMobStats = require(`./getMobStats.js`).getMobStats;
-let getUserStats = require(`../users/getUserStats.js`).getUserStats;
 
 let mobtarget = function(mssg, username){
 
-    let mobtargetd = new Promise (function(myResolve, myReject){
-        let mobtgt;        
+    let mobtargetd = new Promise (async function(myResolve, myReject){
+
+        //splits message to get diff
         let cmdsplt = mssg.split(' ');
         let difficulty = cmdsplt[1];
+        console.log(difficulty);
+        let mobs = [];
+        let maxstr;
 
-            switch(difficulty){
-                case "easy":
-                    connection.query(`SELECT * FROM mobs WHERE strength < 1500`, function(error, results, fields){
-                        mobs = []
-                        for (let i = 0; i < results.length; i++){
-                            mobs.append(results);
-                        }
-                        return mobs
-                    })
+        switch(difficulty){ //puts selected targets into mobs list
+            
+            case "easy":
+                maxstr = 1500;
+                break;
 
-                case "medium":
-                    connection.query(`SELECT * FROM mobs WHERE strength < 3000`, function(error, results, fields){
-                        mobs = []
-                        for (let i = 0; i < results.length; i++){
-                            mobs.append(results);
-                        }
-                        return mobs
-                    })
+            case "medium":
+                maxstr = 6500;
+                break;
 
-                case "hard":
-                    connection.query(`SELECT * FROM mobs`, function(error, results, fields){
-                        mobs = []
-                        for (let i = 0; i < results.length; i++){
-                            mobs.append(results);
-                        }
-                        return mobs
-                    })
+            case "hard":
+                maxstr = 1000001
+                break;
 
-                default:
-                    myReject('Usage: $dungeon [diffculty easy/medium/hard]')
-            }
-        
+            default: //if person writes diff wrong or puts nothing
+                return myReject('Usage: $dungeon [diffculty easy/medium/hard]')
+                break;
+
+        }
+
+        let cuce = new Promise (function(myResolve, myReject){
+            connection.query(`SELECT * FROM mobs WHERE strength <= ?`, [maxstr], function(error, results, fields){
+                mobs.push(results);
+                myResolve(mobs);
+            });
+        });
+
+        cuce.then(function(mobs){
+            console.log(mobs);
+            return myResolve(mobs)
         })
+    })
 
     return mobtargetd
 }
