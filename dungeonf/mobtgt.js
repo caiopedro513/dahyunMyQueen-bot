@@ -24,7 +24,7 @@ let mobtarget = function(mssg, username){
                 break;
 
             default: //if person writes diff wrong or puts nothing
-                return myReject('Usage: $dungeon [diffculty easy/medium/hard]')
+                return myReject('Usage: $dungeon [diffculty easy/medium/hard] $mobs or $mobs difficulty to see more');
                 break;
 
         }

@@ -42,6 +42,7 @@ let slot = require(`./slotmachine/slots.js`).slot;
 let sleep = require(`./sleep.js`).sleep;
 let study = require(`./study.js`).study;
 let dungeon = require(`./dungeonf/dungeon.js`).dungeon;
+let showMobs = require(`./dungeonf/showMobs.js`).showMobs;
 const { dice } = require('./functions.js');
 
 var mysql = require('mysql');
@@ -258,6 +259,10 @@ function onMessageHandler (target, context, msg, self) {
     //dungeon
     if (commandName.startsWith("$dungeon")){
         dungeon(commandName, target, client, context.username);
+    }
+    //mobs
+    if (commandName.startsWith("$mobs")){
+        showMobs(target, client, commandName);
     }
 }
 
