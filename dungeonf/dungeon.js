@@ -15,12 +15,22 @@ let dungeon = function(mssg, target, client, username){
                 return client.say(target, `KUKW you can't fight you're dead but you can $revive`);
             }
 
-            for (let i = 0; i < mobs.length; i++){
-                dgfight(username, mobs[i].name, mssg, client, target);
-            }
         }).catch(function(myReject){
             return client.say(target, myReject);
         })
+
+        let health = 0;
+
+        getUserStats(username, username).then(function(userStats){
+            health += userStats.health;
+            for (let i = 0; i < mobs.length; i++){
+                if (health > 0){
+                    dgfight(username, mobs[i].name, mssg, client, target);
+                    health -= mobs[i].dmg;
+                }
+            }  
+        })
+
     }).catch(function(myReject){
         return client.say(target, myReject)
     })

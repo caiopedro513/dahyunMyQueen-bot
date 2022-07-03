@@ -20,48 +20,50 @@ let dgfight = function(username, tgtmob, mssg, client, target){
                 return client.say(target, `KUKW ${username} you're too tired`);
             }
 
-        }).catch(function(myReject) {
-            return client.say(target, `KUKW ${username} you are not in try to $join`);
-        })
-
-        getMobStats(tgtmob).then(function(mobStats){}).catch(function(myReject){//checks if mob exists
-            return client.say(target, myReject);
-        })
-
-        scoringd(username, tgtmob).then(function(score){
-
-            let dmg = Math.abs(score) / 100;
-
-            if (score == 0){
-                return client.say(target, `KUKW both ${username} and ${tgtmob} passed out while fighting`);
-            }
-
             getMobStats(tgtmob).then(function(mobStats){
-                if (score > 0){
-                    dmg = dmg / 2;
-                    dmg = Math.round(dmg);
-                    chances = 100 - mobStats.probability
-                    loot = mobStats.money
-    
-                    if (numrol >= chances){
-                        loot = loot * mobStats.multiplier
+                
+                scoringd(username, tgtmob).then(function(score){
+
+                    let dmg = mobStats.dmg;
+
+                    if (score == 2){
+                        return client.say(target, `KUKW both ${username} and ${tgtmob} passed out while fighting`);
                     }
-    
-                    updateUserStats(username, -dmg, -25, loot, 10, 0, 0).then(function(){
-                        return client.say(target, `BASED ${username} beat ${tgtmob} up and got $${loot} [-${dmg}❤] [-25⚡]`)
+                    
+                    if (score == 1){
+                        dmg = dmg / 2;
+                        dmg = Math.round(dmg);
+                        chances = 100 - mobStats.probability
+                        loot = mobStats.money
+        
+                        if (numrol >= chances){
+                            loot = loot * mobStats.multiplier
+                        }
+        
+                        updateUserStats(username, -dmg, -25, loot, 10, 0, 0).then(function(){
+                            client.say(target, `BASED ${username} beat ${tgtmob} up and got $${loot} [-${dmg}❤] [-25⚡]`);
+                        })
+                    }
+
+
+                    if (score == 0){
+                        updateUserStats(username, -dmg, -30, 0, 20, 0, 0).then(function(){
+                            client.say(target, `LULE ${username} is garbage and lost to ${tgtmob} [-${dmg}❤] [-30⚡]`);
+                        })
+                    }
+
+                    getUserStats(username, username).then(function(userStats){
+                        if (userStats.health <= 0){
+                            return client.say(target, `FeelsWeakMan ${username} died`)
+                        }
                     })
-                }
+                })
+            }).catch(function(myReject){//checks if mob exists
+                return client.say(target, myReject);
             })
             
-            updateUserStats(username, -dmg, -30, 0, 20, 0, 0).then(function(){
-                client.say(target, `LULE ${username} is garbage and lost to ${tgtmob} [-${dmg}❤] [-30⚡]`);
-            })
-
-            getUserStats(username, username).then(function(userStats){
-                if (userStats.health <= 0){
-                    return client.say(target, `FeelsWeakMan ${username} died`)
-                }
-            })
+        }).catch(function(myReject) {
+            return client.say(target, `KUKW ${username} you are not in try to $join`);
         })
     })
     return fightd
