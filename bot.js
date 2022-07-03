@@ -109,9 +109,7 @@ function onMessageHandler (target, context, msg, self) {
     }
     //test
     if (commandName.indexOf(`test`) > -1){
-        if (commandName.indexOf(`tested`) === -1){
-           test(target, client);
-        }
+        test(target, client, commandName);
     }
     //Junior
     if (commandName.indexOf(`$junior safadão`) > -1){
@@ -165,7 +163,7 @@ function onMessageHandler (target, context, msg, self) {
         if (commandName.indexOf(`rat`) > -1 || commandName.indexOf(`mice`) > -1 || commandName.indexOf(`mouse`) > -1 || 
         commandName.indexOf(`rodent`) > -1 || commandName.indexOf(`🐁`) > -1 || commandName.indexOf(`🐀`) > -1 ||
         commandName.indexOf(`🐭`) > -1 || commandName.indexOf(`🖱`) > -1 || commandName.indexOf(`gerinosco`) > -1 || commandName.indexOf(`scokaychamp`) > -1 || commandName.indexOf('hehr') > -1){
-            rats(target, client);
+            rats(target, client, commandName);
         }
     }
     //namecheck

@@ -1,6 +1,11 @@
 //test
-let test = function (target, client){
-    client.say(target, `/me twiceLove TESTED twiceLove`);
+let test = function (target, client, mssg){
+    let cmdsplt = mssg.split(' ');
+    for (let i = 0; i < cmdsplt.length; i++){
+        if (cmdsplt[i] == 'test' || cmdsplt[i] == 'teste'){
+            return client.say(target, `/me twiceLove TESTED twiceLove`);
+        }
+    }
 }
 
 //queen
@@ -110,8 +115,14 @@ let LULE = function(target, client){
 }
 
 //rats
-let rats = function(target, client){
-    client.say(target, `DansGame`)
+let rats = function(target, client, mssg){
+    let cmd = mssg.split(' ');
+    for (let i = 0; i < cmd.length; i++){
+        if (cmd[i] == `rat` || cmd[i] == `mice` || cmd[i] == `mouse` || cmd[i] == `rodent` || cmd[i] == `🐁` || cmd[i] == `🐀` || cmd[i] == `🐭` || cmd[i] == `🖱`
+         || cmd[i] == `gerinosco` || cmd[i] == `scokaychamp` || cmd[i] == 'hehr'){
+            client.say(target, `DansGame`)
+        }
+    }
 }
 
 //dice
