@@ -1,6 +1,6 @@
 let emotes = ['COCK', 'dias', 'monkaX', 'PepeLoser', 'podium', 'rageW', 'rgpIRL', 'StupidFuckinMistakesMan', 'sanaZoom',
 'SuperIdoldexiaorongdoumeinidetianbayuezhengwudeyangguangdoumeiniyaoyanreai105Cdenididiqingchundezhen',
-'TwiceGood', 'xqcL', 'dahyunWoah', 'Pogplant', ':d', 'BAAAAAAAAT', 'dahyunLALALA', 'dahyunWink', 'COPIUM', 
+'TwiceGood', 'xqcL', 'Pain', 'Pogplant', ':d', 'BAAAAAAAAT', 'dahyunLALALA', 'dahyunWink', 'COPIUM', 
 'chilling', 'Chatting', 'ICAN', 'GAMBAADDICT', 'Goose', 'HEHEHEHE'];
 
 let rndemote = function(){
