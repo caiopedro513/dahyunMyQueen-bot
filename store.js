@@ -36,7 +36,7 @@ const storage = {
 
 let store = function(target, client, username, message, sorbuy){
 
-    if (sorbuy == 1){  
+    if (sorbuy == 1){//Checks if person wants to see store or to buy if == 1 shows store
         for (let x in storage){
             client.say(target, `${x} : $${storage[x].price} ${storage[x].props}`);
         }

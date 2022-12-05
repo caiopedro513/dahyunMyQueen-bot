@@ -10,6 +10,8 @@ let fight = function(target, client, username, mssg){
     var loot;
     var beaten = 0;
     numrol = diceroll();
+    let randomStr = Math.floor(Math.random() * 25);
+    //splits message to get user
     if (mssg.indexOf("@") === -1){
         cmdsplt = mssg.split(' ');
         robpers = cmdsplt[1];
@@ -20,6 +22,7 @@ let fight = function(target, client, username, mssg){
         cmdsplt = cmdsplt[0].trim();
         robpers = cmdsplt;
     }
+    //splits message to get user
     getUserStats(username, username).then(function(userstats) {}).catch(function(myReject) {
         client.say(target, `KUKW ${username} you are not in try to $join`);
     })
@@ -49,16 +52,16 @@ let fight = function(target, client, username, mssg){
             scoring(username, robpers).then(function(score){ //when scoring() is done
                 if (score < 0){
                     
-                    if (numrol >= 100 - score*-1){
+                    if (numrol >= 100 - score*-1){//Target loses in score but wins on luck
                         updateUserStats(username, -20, -25, -50, 0, 0, 0).then(function(){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
                         })
-                        updateUserStats(robpers, -10, -20, 50, 10, 0, 0); //even without .then it works
+                        updateUserStats(robpers, -10, -20, 50, randomStr, 0, 0); //even without .then it works
                     }
 
-                    else{
-                        updateUserStats(robpers, -20, -25, -50, 10, 0, 0).then(function(){
+                    else{//Target loses on both score and luck
+                        updateUserStats(robpers, -20, -25, -50, randomStr, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
                         updateUserStats(username, -10, -20, 50, 0, 0, 0);
@@ -66,14 +69,14 @@ let fight = function(target, client, username, mssg){
                 }
 
                 if (score > 0){
-                    if (numrol >= 100 - score){
-                        updateUserStats(robpers, -20, -20, -50, 10, 0, 0).then(function(){
+                    if (numrol >= 100 - score){//Target wins on score but loses on luck
+                        updateUserStats(robpers, -20, -20, -50, randomStr, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
                         updateUserStats(username, -10, -25, 50, 0, 0, 0);
                     }
-                    else{
-                        updateUserStats(username, -20, -25, -50, 10, 0, 0).then(function(){
+                    else{//Target wins on both score and luck
+                        updateUserStats(username, -20, -25, -50, randomStr, 0, 0).then(function(){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
                         })
@@ -83,14 +86,14 @@ let fight = function(target, client, username, mssg){
 
                 if (score == 0){
 
-                    if (numrol >= 49){
+                    if (numrol >= 49){//Target loses on dice
                         updateUserStats(robpers, -20, -20, -50, 0, 0, 0).then(function(){
                             client.say(target, `${username} got hit but managed to beat ${robpers} and get $50 WideHardo Clap`);
                         })
                         updateUserStats(username, -10, -25, 50, 0, 0, 0);
                     }
 
-                    if (numrol < 49){
+                    if (numrol < 49){//Target wins on dice
                         updateUserStats(username, -20, -25, -50, 0, 0, 0).then(function(){
                             client.say(target, `${robpers} beat ${username} up and got $50 KUKW`);
                             beaten = 1;
@@ -98,7 +101,7 @@ let fight = function(target, client, username, mssg){
                         updateUserStats(robpers, -10, -20, 50, 0, 0, 0);
                     }
                 }
-
+                //Checks if anyone died
                 getUserStats(username, username).then(function(userstats) {
                     getUserStats(robpers, username).then(function(robbedstats){
                         var loot;
