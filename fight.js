@@ -11,6 +11,7 @@ let fight = function(target, client, username, mssg){
     var beaten = 0;
     numrol = diceroll();
     let randomStr = Math.floor(Math.random() * 25);
+    
     //splits message to get user
     if (mssg.indexOf("@") === -1){
         cmdsplt = mssg.split(' ');
@@ -23,6 +24,7 @@ let fight = function(target, client, username, mssg){
         robpers = cmdsplt;
     }
     //splits message to get user
+
     getUserStats(username, username).then(function(userstats) {}).catch(function(myReject) {
         client.say(target, `KUKW ${username} you are not in try to $join`);
     })
