@@ -31,6 +31,13 @@ const storage = {
         energy : 150,
         fat : 0,
         props : '[+150⚡] [1hr]',
+    },
+    weed : {
+        price : 10,
+        health : -5,
+        energy : -30,
+        fat : -50,
+        props : '[-5❤] [-30⚡] [-50 fat ]'
     }
 };
 
@@ -123,6 +130,15 @@ let store = function(target, client, username, message, sorbuy){
                         })
                         break;
                         
+                    case "weed":
+                        getUserStats(username, username).then(function(userstats){
+                            client.say(target, `SMOKE ${username} you smoked some weed Duckass [-5❤] [-30⚡] [-50 fat ] [${userstats.money}💰]`);
+                            if (userstats.health <= 0){
+                                client.say(target, `${username} died reeferSad`);
+                            }
+                        })
+                        break;
+
                     default:
                         break;
                 }
