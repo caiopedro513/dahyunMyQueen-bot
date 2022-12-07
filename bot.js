@@ -43,6 +43,7 @@ let sleep = require(`./sleep.js`).sleep;
 let study = require(`./study.js`).study;
 let dungeon = require(`./dungeonf/dungeon.js`).dungeon;
 let showMobs = require(`./dungeonf/showMobs.js`).showMobs;
+let pray = require(`./pray.js`).pray;
 const { dice } = require('./functions.js');
 
 var mysql = require('mysql');
@@ -261,6 +262,10 @@ function onMessageHandler (target, context, msg, self) {
     //mobs
     if (commandName.startsWith("$mobs")){
         showMobs(target, client, commandName);
+    }
+    //pray
+    if (commandName.startsWith("$pray")){
+        pray(target, client, context.username);
     }
 }
 
