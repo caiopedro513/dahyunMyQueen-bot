@@ -44,6 +44,7 @@ let study = require(`./study.js`).study;
 let dungeon = require(`./dungeonf/dungeon.js`).dungeon;
 let showMobs = require(`./dungeonf/showMobs.js`).showMobs;
 let pray = require(`./pray.js`).pray;
+//const user = require(`./users/user`).user;
 const { dice } = require('./functions.js');
 
 var mysql = require('mysql');
