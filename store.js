@@ -2,6 +2,7 @@ let diceroll = require(`./functions.js`).diceroll;
 let updateUserStats = require(`./users/updateUserStats.js`).updateUserStats;
 let getUserStats = require(`./users/getUserStats`).getUserStats;
 let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStats;
+const user = require(`./user.js`).user;
 
 const storage = {
     food : {
@@ -73,9 +74,8 @@ let store = function(target, client, username, message, sorbuy){
                     })
                 }
                 else{
-                    updateUserStats(username, -userstats.health, 0, 0, 0, 0, 0).then(function(){
-                        return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
-                    })
+                    user.setHealth(username, -userstats.health);
+                    return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
                 }
             }
 

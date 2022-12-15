@@ -2,6 +2,7 @@ let getUserStats = require(`./users/getUserStats`).getUserStats;
 let updateUserStats = require(`./users/updateUserStats`).updateUserStats;
 let diceroll = require(`./functions.js`).diceroll;
 let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStats;
+const user = require(`./user.js`).user;
 
 const hotels = {
     expensive : {
@@ -50,14 +51,12 @@ let sleep = function(username, porbuy, client, target, message){
                     if (userstats.money < hotels[choice].price){
                         let rolled = diceroll();
                         if (rolled >= 65){
-                            updateUserStats(username, 0, hotels[choice].energy, 0, 0, 0, 0).then(function(){
-                                return client.say(target, `Widecycle ${username} you sneaked in the luxury hotel and slept for free [+${hotels[choice].energy}⚡]`);
-                            })
+                            user.setEnergy(username, hotels[choice].energy);
+                            return client.say(target, `Widecycle ${username} you sneaked in the luxury hotel and slept for free [+${hotels[choice].energy}⚡]`);
                         }
                         else{
-                            updateUserStats(username, -userstats.health, 0, 0, 0, 0, 0).then(function(){
-                                return client.say(target, `HEHEHEHE ${username} police caught you trying to sneak into hotel and you got murdered in jail`);
-                            })
+                            user.setHealth(username, -userstats.health);
+                            return client.say(target, `HEHEHEHE ${username} police caught you trying to sneak into hotel and you got murdered in jail`);
                         }
                     }
                     //paid

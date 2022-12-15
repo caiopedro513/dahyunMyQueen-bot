@@ -1,6 +1,7 @@
 let getUserStats = require(`./users/getUserStats`).getUserStats;
 let updateUserStats = require(`./users/updateUserStats`).updateUserStats;
-let diceroll = require(`./functions.js`).diceroll
+let diceroll = require(`./functions.js`).diceroll;
+const user = require(`./user.js`).user;
 
 let study = function(username, client, target){
 
@@ -50,9 +51,8 @@ let study = function(username, client, target){
         if (userstats.energy <= 3){
             let rroll = Math.floor(Math.random() * 1001);
             if (rroll <= 5){
-                updateUserStats(username, 0, 0, -50, 0, 0, 0).then(function(){
-                    return client.say(target, `HEHEHEHE you got too tired, fell asleep while studying and got robbed [-$50]`);
-                })
+                user.setMoney(username, -50);
+                return client.say(target, `HEHEHEHE you got too tired, fell asleep while studying and got robbed [-$50]`);
             }
         }
         

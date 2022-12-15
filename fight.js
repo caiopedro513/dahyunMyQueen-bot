@@ -3,6 +3,7 @@ let getUserStats = require(`./users/getUserStats.js`).getUserStats;
 let updateUserStats = require(`./users/updateUserStats`).updateUserStats;
 let diceroll = require(`./functions.js`).diceroll
 let resetUserStats = require(`./users/resetUserStats.js`).resetUserStats;
+const user = require(`./user.js`).user;
 
 let fight = function(target, client, username, mssg){
     var cmdsplt;
@@ -128,8 +129,8 @@ let fight = function(target, client, username, mssg){
         
                                 loot = userstats.money;
                                 if (loot >= 0){
-                                    updateUserStats(robpers, 0, 0, loot, 0, 0, 0);
-                                    updateUserStats(username, 0, 0, -loot, 0, 0, 0);
+                                    user.setMoney(robpers, loot);
+                                    user.setMoney(username, -loot);
                                 }
                             }
                         }    
@@ -148,8 +149,8 @@ let fight = function(target, client, username, mssg){
                                 
                                 loot = robbedstats.money;
                                 if (loot >= 0){
-                                    updateUserStats(username, 0, 0, loot, 0, 0, 0);
-                                    updateUserStats(robpers, 0, 0, -loot, 0, 0, 0);
+                                    user.setMoney(username, loot);
+                                    user.setMoney(robpers, -loot);
                                 }
                             }
                         }

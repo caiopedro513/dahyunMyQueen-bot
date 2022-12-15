@@ -2,6 +2,7 @@ let pricing = require(`./price.js`).pricing;
 const { getUserStats } = require("./users/getUserStats");
 const { updateUserStats } = require("./users/updateUserStats");
 let updateSlotStats = require(`./slotmachine/updateSlotStats.js`).updateSlotStats;
+const user = require(`./user.js`).user;
 
 let gym = function(target, client, username){
     getUserStats(username, username).then(function(userstats){
@@ -24,7 +25,7 @@ let gym = function(target, client, username){
 
                 if (userstats.money < 75){
                     client.say(target, `${username} you got beat up at the gym after trying not to pay peepoSmash`);
-                    updateUserStats(username, -30, 0, 0, 0, 0, 0);
+                    user.setHealth(username, -30);
                     getUserStats(username, username).then(function(userstats){
                         if (userstats.health <= 0){
                             return client.say(target, `reeferSad ${username} died`);

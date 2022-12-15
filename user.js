@@ -10,17 +10,6 @@ globalThis.connection = mysql.createConnection({
 connection.connect();
 
 const user = {
-    find : function(username) {connection.query(`SELECT * FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-        if (results != undefined){
-            console.log('kukw1');
-            if (results.length === 0){
-                return 'kukw2';
-                //return false;
-            }
-            return 'kukw3';
-            //return true;
-        }
-    })},
     setHealth : function(username, healthValue) {connection.query(`UPDATE fightclubstats SET health = health + ? WHERE username = ?`, [healthValue, username])},
     setEnergy : function(username, energyValue) {connection.query(`UPDATE fightclubstats SET energy = energy + ? WHERE username = ?`, [energyValue, username])},
     setMoney : function(username, moneyValue) {connection.query(`UPDATE fightclubstats SET money = money + ? WHERE username = ?`, [moneyValue, username])},
@@ -28,7 +17,5 @@ const user = {
     setFat : function(username, fatValue) {connection.query(`UPDATE fightclubstats SET fat = fat + ? WHERE username = ?`, [fatValue, username])},
     setSmartness : function(username, smartValue) {connection.query(`UPDATE fightclubstats SET smartness = smartness + ? WHERE username = ?`, [smartValue, username])}
 };
-
-console.log(user.find('rgplayzinho'));
 
 module.exports = {user};
