@@ -2,10 +2,20 @@ let pricing = function(username){
     var price = 0;
     let prices = new Promise(function(myResolve) {
         connection.query(`SELECT money FROM fightclubstats WHERE username = ?`, [username], function(error, results, fields){
-            if (results[0].money >= 150 ){
-                price = results[0].money * 0.35;
+            let money = results[0].money;
+            if (money >= 150000){
+                price = money * 0.05;
             }
-            else{
+            if (money >= 15000 && money <= 150000){
+                price = money * 0.15
+            }
+            if (money >= 1500 && money <= 15000){
+                price = money * 0.25;
+            }
+            if (money >= 150 && money <= 1500){
+                price = money * 0.35;
+            }
+            if (money < 150){
                 price = 1;
             }
             if (price > 0) {
