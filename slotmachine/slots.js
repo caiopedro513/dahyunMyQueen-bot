@@ -58,7 +58,7 @@ let slot = function(target, client, message, username, isprize){
                     }
 
                     updateSlotStats(bet);
-                    return client.say(target, `FUCKYOU ${username} you didnt win anything try again and maybe you do`);
+                    return client.say(target, `FUCKYOU ${username} you didnt win anything try again and maybe you do -$${bet} LULE`);
                 })
             })
 
