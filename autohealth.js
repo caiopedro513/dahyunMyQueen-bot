@@ -14,23 +14,25 @@ connection.connect();
 console.log("Running :)");
 
 let autohealth = function(){
-    connection.query('UPDATE fightclubstats SET money = money + 5, fat = fat + 3 WHERE health > 0', function(error, results, fields){
-    })
+    connection.query('UPDATE fightclubstats SET fat = fat + 3 WHERE health > 0', function(error, results, fields){
+    });
     connection.query('UPDATE fightclubstats SET health = health + 5 WHERE health > 0 AND health < 500', function(error, results, fields){
-    })
+    });
+    connection.query(`UPDATE fightclubstats SET money = money + 5 WHERE health > 0 AND money < 2500`, function(error, results, fields){
+    });
 }
 
 let autoenergy = function(){
     connection.query('UPDATE fightclubstats SET energy = energy + 1 WHERE energy < 100', function(error, results, fields){
-    })
+    });
 }
 
 let cdcheck = function(){
     let tempcd = new Date();
     connection.query('SELECT * FROM persons', function(error, results, fields){
         connection.query('DELETE FROM persons WHERE timelog < ?', [tempcd], function(error, results, fields){
-        })
-    })
+        });
+    });
 }
 
 setInterval(cdcheck, 60*1000);
