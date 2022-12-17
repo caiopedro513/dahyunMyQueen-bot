@@ -52,8 +52,10 @@ let store = function(target, client, username, message, sorbuy){
 
     else {
 
-        trimmssg = message.split(' ');
-        choice = trimmssg[1];
+        let trimmssg = message.split(' ');//splits messages by each space 0 being the actual command
+        let choice = trimmssg[1];
+        let amount = trimmssg[2];
+        amount = Number(amount);
         if (!choice) choice = undefined;
         getUserStats(username, username).then(function(userstats){
             
@@ -65,84 +67,112 @@ let store = function(target, client, username, message, sorbuy){
                 return client.say(target, `${username} you can't buy that KUKW`);
             }
 
-            if (userstats.money < storage[choice].price){
-                var rolled = diceroll();
-                
-                if (rolled >= 65){
-                    updateUserStats(username, storage[choice].health, storage[choice].energy, 0, 0, storage[choice].fat, 0).then(function(){
-                        return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
+            if (Number.isNaN(amount)){//if number is not inserted or person types emote or whatever like that
+                amount = 1;
+            }
+
+            let price = storage[choice].price * amount;
+            let health = storage[choice].health * amount;
+            let energy = storage[choice].energy * amount;
+            let fat = storage[choice].fat * amount;
+
+            if (choice == 'energy_drink'){
+                connection.query('SELECT * FROM persons WHERE username = ? AND reason = ?', [username, 'energy_drink'], function(error, results, fields){
+                    if (results != undefined){
+                        if (results.length != 0){
+                            return client.say(target, `XQC ${username} wait for cooldown`);    
+                        }
+                    }
+
+                    else{
+                        if (userstats.money < price){
+                            var rolled = diceroll();
+                            
+                            if (rolled >= 65){
+                                updateUserStats(username, health, energy, 0, 0, fat, 0).then(function(){
+                                    return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
+                                })
+                            }
+                            else{
+                                user.setHealth(username, -userstats.health);
+                                return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
+                            }
+                        }
+                    } 
+
+                    updateUserStats(username, health, energy, -price, 0, fat, 0).then(function(){
+                        getUserStats(username, username).then(function(userstats){
+                            updateSlotStats(price);
+                            client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank ${amount * 5} cans of energy drink [+${energy}⚡] [${amount}hr] [${userstats.money}💰]`);
+                        })
                     })
-                }
-                else{
-                    user.setHealth(username, -userstats.health);
-                    return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
-                }
+                    let time = new Date();
+                    time.setHours(time.getHours() + amount);
+                    return connection.query(`INSERT INTO persons (username, timelog, reason) VALUES (?, ?, ?)`, [username, time, 'energy_drink'], function(error, results, fields) {})
+                })
             }
 
             else{
-
-                if (choice == 'energy_drink'){
-                    connection.query('SELECT * FROM persons WHERE username = ? AND reason = ?', [username, 'energy_drink'], function(error, results, fields){
-                        if (results != undefined){
-                            if (results.length != 0){
-                                return client.say(target, `XQC ${username} wait for cooldown`);    
-                            }
-                        }
-                        updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choice].fat, 0).then(function(){
-                            getUserStats(username, username).then(function(userstats){
-                                updateSlotStats(storage[choice].price);
-                                client.say(target, `DooooooooogLookingSussyAndCute ${username} you drank 5 cans of energy drink [+150⚡] [1hr] [${userstats.money}💰]`);
-                            })
+                
+                if (userstats.money < price){
+                    var rolled = diceroll();
+                    
+                    if (rolled >= 65){
+                        updateUserStats(username, health, energy, 0, 0, fat, 0).then(function(){
+                            return client.say(target, `WideHardo Clap ${username} cops saw you trying not to pay but you escaped`);
                         })
-                        let time = new Date();
-                        time.setHours(time.getHours() + 1);
-                        return connection.query(`INSERT INTO persons (username, timelog, reason) VALUES (?, ?, ?)`, [username, time, 'energy_drink'], function(error, results, fields) {})
-                    })
+                    }
+                    else{
+                        user.setHealth(username, -userstats.health);
+                        return client.say(target, `monkaGun monkaH ${username} police caught you trying to steal and you got murdered in jail`);
+                    }
                 }
-
+    
                 else{
-                    updateUserStats(username, storage[choice].health, storage[choice].energy, -storage[choice].price, 0, storage[choice].fat, 0).then(function(){
+    
+                    updateUserStats(username, health, energy, -price, 0, fat, 0).then(function(){
                         getUserStats(username, username).then(function(){
-                            updateSlotStats(storage[choice].price);
+                            updateSlotStats(price);
                         })
                     })
-                }
-
-                switch(choice){
-
-                    case "food":
-                        getUserStats(username, username).then(function(userstats){
-                            client.say(target, `peepoFat ${username} you had a nice meal [+10❤] [+10⚡] [+10 fat ] [${userstats.money}💰]`);
-                        })
-                        break;
-                    case "drink":
-                        getUserStats(username, username).then(function(userstats){
-                            client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+2❤] [+5⚡] [+3 fat ] [${userstats.money}💰]`);
-                        })
-                        break;
-
-                    case "cigarette":
-                        getUserStats(username, username).then(function(userstats){
-                            client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [-80❤] [+20⚡] [${userstats.money}💰]`);
-                            if (userstats.health <= 0){
-                                client.say(target, `${username} died reeferSad`);
-                            }
-                        })
-                        break;
-                        
-                    case "weed":
-                        getUserStats(username, username).then(function(userstats){
-                            client.say(target, `SMOKE ${username} you smoked some weed Duckass [-5❤] [-30⚡] [-50 fat ] [${userstats.money}💰]`);
-                            if (userstats.health <= 0){
-                                client.say(target, `${username} died reeferSad`);
-                            }
-                        })
-                        break;
-
-                    default:
-                        break;
+    
+                    switch(choice){
+    
+                        case "food":
+                            getUserStats(username, username).then(function(userstats){
+                                client.say(target, `peepoFat ${username} you had a nice meal [+${health}❤] [+${energy}⚡] [+${fat} fat ] [${userstats.money}💰]`);
+                            })
+                            break;
+                        case "drink":
+                            getUserStats(username, username).then(function(userstats){
+                                client.say(target, `OFFLINECHAT WineTime ${username} you had a glass of wine and [+${health}❤] [+${energy}⚡] [+${fat} fat ] [${userstats.money}💰]`);
+                            })
+                            break;
+    
+                        case "cigarette":
+                            getUserStats(username, username).then(function(userstats){
+                                client.say(target, `monkeSmoke ${username} you smoked a whole pack of cigarettes [${health}❤] [+${energy}⚡] [${userstats.money}💰]`);
+                                if (userstats.health <= 0){
+                                    client.say(target, `${username} died reeferSad`);
+                                }
+                            })
+                            break;
+                            
+                        case "weed":
+                            getUserStats(username, username).then(function(userstats){
+                                client.say(target, `SMOKE ${username} you smoked some weed Duckass [${health}❤] [${energy}⚡] [${fat} fat ] [${userstats.money}💰]`);
+                                if (userstats.health <= 0){
+                                    client.say(target, `${username} died reeferSad`);
+                                }
+                            })
+                            break;
+    
+                        default:
+                            break;
+                    }
                 }
             }
+
         }).catch(function(){
             return client.say(target, `${username} is not even here KUKW but feel free to $join`);
         })
